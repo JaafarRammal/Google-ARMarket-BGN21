@@ -4,6 +4,7 @@ const admin = require('firebase-admin');
 const express = require('express');
 const cors = require('cors');
 const { service } = require("firebase-functions/lib/providers/analytics");
+const Product = require('./modules/product.js');
 
 admin.initializeApp({
     credential: admin.credential.applicationDefault()
