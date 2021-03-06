@@ -104,7 +104,7 @@ app.delete('api/products', (req, res) => {
     (async () => {
         try {
             const id = req.params.id;
-            await firestore.collection('products').doc(id).delete();
+            await db.collection('products').doc(id).delete();
             res.send('Record deleted successfuly');
         } catch (error) {
             res.status(400).send(error.message);
