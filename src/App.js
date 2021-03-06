@@ -2,7 +2,7 @@ import "@google/model-viewer";
 import React from "react";
 import "./App.css";
 import ARPage from "./pages/ARPage";
-import Camera from "./utilities/Camera";
+import Camera from "./utilities/camera";
 
 function App() {
   // <div class="imgbox">

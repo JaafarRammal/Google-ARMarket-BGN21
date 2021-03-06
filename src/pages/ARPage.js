@@ -3,6 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import "./ARPage.css";
 
+import Astronaut from "../assets/Astronaut.glb";
+import AstronautIOS from "../assets/Astronaut.usdz";
+
 const useStyles = makeStyles({
   arButton: {
     backgroundColor: "white",
@@ -24,16 +27,17 @@ const ARPage = () => {
       <model-viewer
         class="center-fit"
         // src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-        src="./assets/Astronaut.glb"
-        alt="A 3D model of an astronaut"
+        src={Astronaut}
+        alt={AstronautIOS}
         // auto-rotate
         camera-controls
         ar
         ar-scale="auto"
         ar-modes="scene-viewer webxr quick-look"
+        ios-src="./assets/Astronaut.usdz"
       >
         <button className={classes.arButton} slot="ar-button">
-          View in your space
+          View in AR
         </button>
       </model-viewer>
     </div>
