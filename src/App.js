@@ -2,6 +2,7 @@ import "@google/model-viewer";
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
+import AddProduct from "./pages/AddProduct";
 import Product from "./pages/Product";
 import Products from "./pages/Products";
 
@@ -24,6 +25,9 @@ import Products from "./pages/Products";
 function App() {
   return (
     <Router>
+      <Route path="/add">
+        <AddProduct />
+      </Route>
       <Route path="/products">
         <Products />
       </Route>
