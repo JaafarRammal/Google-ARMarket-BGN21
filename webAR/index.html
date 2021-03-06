@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset='utf-8'>
+  <head>
+    <meta charset="utf-8" />
     <title>GeoAR.js demo</title>
-    
-    <script type="module"
-    src="https://unpkg.com/@google/model-viewer@0.3.1/dist/model-viewer.js">
-    </script>
 
-    <script nomodule
-    src="https://unpkg.com/@google/model-viewer@0.3.1/dist/model-viewer-legacy.js">
-    </script>
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer@0.3.1/dist/model-viewer.js"
+    ></script>
 
-</head>
+    <script
+      nomodule
+      src="https://unpkg.com/@google/model-viewer@0.3.1/dist/model-viewer-legacy.js"
+    ></script>
+  </head>
 
-<body>
+  <body>
     Do you see me?
     <style>
-        model-viewer#reveal {
-          --poster-color: transparent;
-        }
-      </style>
-      <model-viewer camera-controls ar alt="A 3D model of a sphere" src="./assets/Astronaut.glb">
-      </model-viewer>
-</body>
+      model-viewer#reveal {
+        --poster-color: transparent;
+      }
+    </style>
+    <model-viewer
+      src="./assets/Astronaut.glb"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      ar-scale="auto"
+      camera-controls
+      alt="A 3D model of an astronaut"
+      ios-src="./assets/Astronaut.usdz"
+    ></model-viewer>
+  </body>
+</html>
