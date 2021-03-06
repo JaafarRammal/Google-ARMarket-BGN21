@@ -1,10 +1,9 @@
 import "@google/model-viewer";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import "./ARPage.css";
-
 import Astronaut from "../assets/Astronaut.glb";
 import AstronautIOS from "../assets/Astronaut.usdz";
+import "./ARView.css";
 
 const useStyles = makeStyles({
   arButton: {
@@ -12,14 +11,13 @@ const useStyles = makeStyles({
     borderColor: "black",
     borderOutline: "black",
     borderRadius: "5px",
-    // border: "none",
     position: "absolute",
     top: "16px",
     right: "16px",
   },
 });
 
-const ARPage = () => {
+const ARView = () => {
   const classes = useStyles();
 
   return (
@@ -28,13 +26,13 @@ const ARPage = () => {
         class="center-fit"
         // src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
         src={Astronaut}
-        alt={AstronautIOS}
+        alt="Astronaut - replace this with the releveant info"
         // auto-rotate
         camera-controls
         ar
         ar-scale="auto"
         ar-modes="scene-viewer webxr quick-look"
-        ios-src="./assets/Astronaut.usdz"
+        ios-src={AstronautIOS}
       >
         <button className={classes.arButton} slot="ar-button">
           View in AR
@@ -44,4 +42,16 @@ const ARPage = () => {
   );
 };
 
-export default ARPage;
+function Product(props) {
+  return (
+    <div>
+      <p>Got product ID: {props.match.params.productId}</p>
+
+      <div>
+        <ARView />
+      </div>
+    </div>
+  );
+}
+
+export default Product;

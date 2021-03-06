@@ -1,7 +1,9 @@
 import "@google/model-viewer";
 import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-import ARPage from "./pages/ARPage";
+import Product from "./pages/Product";
+import Products from "./pages/Products";
 
 // <div class="imgbox">
 //   <model-viewer
@@ -21,9 +23,12 @@ import ARPage from "./pages/ARPage";
 
 function App() {
   return (
-    <div>
-      <ARPage />
-    </div>
+    <Router>
+      <Route path="/products">
+        <Products />
+      </Route>
+      <Route path="/products/:productId" component={Product} />
+    </Router>
   );
 }
 
