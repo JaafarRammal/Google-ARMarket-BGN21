@@ -5,4 +5,6 @@ class Seller {
         this.owner = owner;
     }
 }
+
+
 module.exports = Seller;
