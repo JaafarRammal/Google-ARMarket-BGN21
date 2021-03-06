@@ -1,22 +1,38 @@
 import "@google/model-viewer";
+import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
+import "./ARPage.css";
+
+const useStyles = makeStyles({
+  arButton: {
+    backgroundColor: "white",
+    borderColor: "black",
+    borderOutline: "black",
+    borderRadius: "5px",
+    // border: "none",
+    position: "absolute",
+    top: "16px",
+    right: "16px",
+  },
+});
 
 const ARPage = () => {
+  const classes = useStyles();
+
   return (
-    <div>
+    <div class="imgbox">
       <model-viewer
-        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        class="center-fit"
+        // src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        src="./assets/Astronaut.glb"
         alt="A 3D model of an astronaut"
-        auto-rotate
+        // auto-rotate
         camera-controls
         ar
         ar-scale="auto"
         ar-modes="scene-viewer webxr quick-look"
       >
-        <button
-          slot="ar-button"
-          // style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; "
-        >
+        <button className={classes.arButton} slot="ar-button">
           View in your space
         </button>
       </model-viewer>
