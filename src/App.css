@@ -1,13 +1,18 @@
 .decoration-div {
   background: #1976d2;
   height: 200px;
-  padding: 120px 30% 20px;
-  margin-bottom: -120px;
-  text-align: left;
+  padding: 120px 20px;
+  display: flex;
+  justify-content: center;
   color: black;
-  align-items: center;
   background-image: url("http://www.gstatic.com/pantheon/images/marketplace/storefront_header_bg_v6.jpg");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.inner-decoration {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left !important;
 }

@@ -75,8 +75,8 @@ function AddProduct(props) {
         <Typography><h3>Google Marketplace</h3></Typography>
         </Toolbar>
       </AppBar></ElevationScroll>
-      <div className="decoration-div" style={{textAlign: "center"}}>
-        <p style={{fontSize: "x-large"}}>Add your product to the market!</p>
+      <div className="decoration-div" style={{textAlign: "center", marginBottom: "-250px"}}>
+        <div className="inner-decoration"><p style={{fontSize: "x-large"}}>Add your product to the market!</p></div>
       </div>
     <div className="paper-container">
     <div className="add-container">
