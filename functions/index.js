@@ -23,13 +23,7 @@ const db = admin.firestore();
 app.use(cors({ origin: true }));
 app.use(fileParser);
 
-// Works
-app.get("/api/test", (req, res) => {
-  return res.status(200).send("Hello World!");
-});
-
-// Works
-// get product by id
+//FUNCTIONAL
 app.get("/api/products/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -45,27 +39,16 @@ app.get("/api/products/:id", async (req, res) => {
   }
 });
 
-// Works
-// get all products
+//FUNCTIONAL
 app.get("/api/products", async (req, res) => {
   try {
     console.log("Fetching data");
     const products = await db.collection("products").get();
-    // const data = await products.get();
-    // console.log(data);
     const productsArray = [];
     if (products.empty) {
       res.status(404).send("No record found");
     } else {
       products.forEach((doc) => {
-        // const product = new Product(
-        //   doc.id,
-        //   doc.data().colour,
-        //   doc.data().size,
-        //   doc.data().object_file,
-        //   doc.data().price,
-        //   doc.data().quantity
-        // );
         productsArray.push({ id: doc.id, data: doc.data() });
       });
       res.send(productsArray);
@@ -75,10 +58,7 @@ app.get("/api/products", async (req, res) => {
   }
 });
 
-// TODO: Add a product
-//       Use google cloud storage to store the buffer received into a file
-//       and get the picture link to the file
-// add a product
+//FUNCTIONAL
 app.post("/api/products", async (req, res) => {
   try {
     // Get the relevant information
@@ -86,32 +66,13 @@ app.post("/api/products", async (req, res) => {
     const name = req.body["name"];
     const price = req.body["price"];
     const quantity = req.body["quantity"];
+    const productTags = req.body["tags"];
 
     // Check and the parse the files
     if (req.files.length > 0) {
-      console.log(req.files);
-
       // Get the image
       const image = req.files[0];
       const model = req.files[1];
-      console.log(image);
-      console.log(model);
-
-      // const id = req.params.id;
-      // const product = await db.collection("products").doc(id);
-      // const data = await product.get();
-      // if (!data.exists) {
-      //   res.status(404).send("No such product has been found");
-      // } else {
-      //   res.send(data.data());
-      // }
-
-      // Access the storage bucket
-      // const [files] = await storage.bucket().getFiles();
-      // console.log("Files: ");
-      // files.forEach((file) => {
-      //   console.log(file.name);
-      // });
 
       // Upload the image to the storage bucket
       uploadFileToStorage(image)
@@ -128,6 +89,7 @@ app.post("/api/products", async (req, res) => {
                 quantity,
                 image_link: imageUrl,
                 model_link: modelUrl,
+                product_tags: productTags,
               });
 
               res.json({
@@ -137,6 +99,7 @@ app.post("/api/products", async (req, res) => {
                 quantity,
                 image_link: imageUrl,
                 model_link: modelUrl,
+                product_tags: productTags,
               });
             })
             .catch((error) => {
@@ -154,39 +117,91 @@ app.post("/api/products", async (req, res) => {
   }
 });
 
-// update a product
-app.put("/api/products", (req, res) => {
-  async () => {
-    try {
-      const id = req.params.id;
-      const data = req.body;
-      const product = await db.collection("products").doc(id);
-      await product.update(data);
-      res.send("Product record updated.");
-    } catch (error) {
-      res.status(400).send(error.message);
+//FUNCTIONAL
+app.post("/api/upload", async (req, res) => {
+  try {
+    if (req.files.length > 0) {
+      const image = req.files[0]; //image should be the first file we send.
+      uploadFileToStorage(image).then((imageUrl) => {
+        getImageTags(imageUrl)
+          .then((tags) => {
+            object_tags = tags;
+            getProductIDs(object_tags)
+              .then((return_ids) => {
+                res.status(200).send(return_ids);
+              })
+              .catch((error) => res.status(400).send(error.message));
+          })
+          .catch((error) => res.status(500).send(error.message));
+      });
     }
-  };
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 
-// delete a product
-app.delete("/api/products", (req, res) => {
-  async () => {
-    try {
-      const id = req.params.id;
-      await db.collection("products").doc(id).delete();
-      res.send("Record deleted successfuly");
-    } catch (error) {
-      res.status(400).send(error.message);
-    }
-  };
+//FUNCTIONAL
+app.get("/api/search/:query", async (req, res) => {
+  try {
+    query = req.params.query;
+    getProductIDs([query])
+      .then((return_ids) => {
+        res.status(200).send(return_ids);
+      })
+      .catch((error) => res.status(400).send(error.message));
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 
-// Upload a file to storage
+//update a product
+app.put("/api/products/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    const product = await db.collection("products").doc(id);
+    await product.update(data);
+    res.send("Product record updated.");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+//FUNCTIONAL
+app.delete("/api/products/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    await db.collection("products").doc(id).delete();
+    res.status(400).send("Record deleted.");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+//FUNCTIONAL
+app.post("/api/imgquery", async (req, res) => {
+  try {
+    const imgUrl = req.body["url"];
+    console.log(imgUrl);
+    getImageTags(imgUrl)
+      .then((object_tags) => {
+        getProductIDs(object_tags)
+          .then((product_ids) => {
+            res.status(200).send(product_ids);
+          })
+          .catch((error) => res.status(400).send(error.message));
+      })
+      .catch((error) => res.status(400).send(error.message));
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+// Upload a file to storage - FUNCTIONAL
 const uploadFileToStorage = (fileInfo) => {
   return new Promise((resolve, reject) => {
-    const fileName = `${Date.now()}-${fileInfo.originalname}`;
-    const fileUpload = bucket.file(fileName);
+    let fileName = `${Date.now()}-${fileInfo.originalname}`;
+    let fileUpload = bucket.file(fileName);
 
     const blobStream = fileUpload.createWriteStream({
       metadata: {
@@ -211,5 +226,31 @@ const uploadFileToStorage = (fileInfo) => {
     blobStream.end(fileInfo.buffer);
   });
 };
+
+//FUNCTIONAL
+function getProductIDs(object_tags) {
+  return new Promise(function (resolve, reject) {
+    product_ids = [];
+    db.collection("products")
+      .get()
+      .then((products) => {
+        products.forEach((doc) => {
+          id = doc.id;
+          tags = doc.data().product_tags;
+          console.log(tags);
+          console.log(object_tags);
+          ans = object_tags.some(function (e1) {
+            return tags.includes(e1);
+          });
+          if (ans) {
+            product_ids.push(id);
+          }
+        });
+
+        resolve(product_ids);
+      })
+      .catch((error) => reject(error));
+  });
+}
 
 exports.app = functions.https.onRequest(app);
