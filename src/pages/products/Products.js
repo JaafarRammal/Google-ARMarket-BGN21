@@ -7,9 +7,10 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { useStyles } from "./Styles";
 import "./Products.css";
-// import Shop1 from "../../assets/images/shop1.png";
-// import Shop2 from "../../assets/images/shop2.png";
 import Grid from "@material-ui/core/Grid";
+import IconButton from '@material-ui/core/IconButton';
+import PhotoAlbum from '@material-ui/icons/PhotoAlbum';
+import Add from "@material-ui/icons/Add";
 
 function Products(props) {
   const classes = useStyles();
@@ -17,8 +18,7 @@ function Products(props) {
     <>
       <AppBar position="fixed" style={{ background: "#1976D2" }}>
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            <h3>Google Marketplace</h3>
+          <Typography className={classes.title}>
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -33,13 +33,24 @@ function Products(props) {
               inputProps={{ "aria-label": "search" }}
             />
           </div>
+          <div style={{paddingRight: "5px"}}/>
+          <input accept="image/*" className={classes.input} id="icon-button-file" type="file" style={{display: "none"}}/>
+          <label htmlFor="icon-button-file">
+            <IconButton style={{color: "white"}} aria-label="upload picture" component="span">
+              <PhotoAlbum />
+            </IconButton>
+          </label>
+          <IconButton style={{color: "white"}} component="span" onClick={() => window.open(window.location.toString() + "/add", "blank")}>
+            <Add />
+          </IconButton>
         </Toolbar>
       </AppBar>
       {/* Decoration container like Firebase one */}
       <div className="decoration-div">
-        <h1>A marketplace for everyone</h1>
+        <h3>Google Marketplace</h3>
+        <h1>A marketplace for everyone</h1> 
       </div>
-      <Grid container spacing={3} className="products-list">
+      <Grid container spacing={3} className="products-list" wrap>
         <Grid item xs={3}>
           <ProductCard></ProductCard>
         </Grid>

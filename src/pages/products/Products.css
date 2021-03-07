@@ -1,8 +1,8 @@
 .decoration-div {
   background: #1976d2;
   height: 200px;
-  padding: 100px 20px 20px;
-  margin-bottom: -100px;
+  padding: 120px 20px 20px;
+  margin-bottom: -120px;
   text-align: center;
   color: white;
 }
@@ -13,4 +13,8 @@ img {
 
 .products-list {
   padding: 20px 20%;
+}
+
+input {
+  display: 'none',
 }
