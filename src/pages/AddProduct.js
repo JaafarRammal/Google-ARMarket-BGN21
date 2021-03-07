@@ -1,15 +1,14 @@
 import { Grid, TextField, Typography } from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import Toolbar from "@material-ui/core/Toolbar";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import AddIcon from "@material-ui/icons/Add";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import PropTypes from "prop-types";
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import "./AddProduct.css"
-
-import PropTypes from 'prop-types';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import "./AddProduct.css";
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -70,24 +69,27 @@ function AddProduct(props) {
   };
 
   return (
-    <><ElevationScroll {...props}><AppBar position="fixed" style={{ background: "#1976D2" }}>
-        <Toolbar>
-        <Typography><h3>Google Marketplace</h3></Typography>
-        </Toolbar>
-      </AppBar></ElevationScroll>
-      <div className="decoration-div" style={{textAlign: "center"}}>
-        <p style={{fontSize: "x-large"}}>Add your product to the market!</p>
+    <>
+      <ElevationScroll {...props}>
+        <AppBar position="fixed" style={{ background: "#1976D2" }}>
+          <Toolbar>
+            <Typography component="h3">Google Marketplace</Typography>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+      <div className="decoration-div" style={{ textAlign: "center" }}>
+        <p style={{ fontSize: "x-large" }}>Add your product to the market!</p>
       </div>
-    <div className="paper-container">
-    <div className="add-container">
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-        spacing={3}
-      >
-        {/* <Grid item xs={12}>
+      <div className="paper-container">
+        <div className="add-container">
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            spacing={3}
+          >
+            {/* <Grid item xs={12}>
           <Typography variant="h3">Add Product</Typography>
         </Grid>
 
@@ -95,96 +97,99 @@ function AddProduct(props) {
           Add a product to your business:
         </Grid> */}
 
-        <Grid item xs={12}>
-          <TextField
-            label="Product Name"
-            required
-            id="product-name"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-        </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Product Name"
+                required
+                id="product-name"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
 
-        <Grid item xs={12}>
-          <TextField
-            label="Price"
-            required
-            id="product-price"
-            type="number"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-        </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Price"
+                required
+                id="product-price"
+                type="number"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
 
-        <Grid item xs={12}>
-          <TextField
-            label="Quantity"
-            required
-            id="product-quantity"
-            type="number"
-            fullWidth
-            margin="normal"
-            variant="outlined"
-          />
-        </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Quantity"
+                required
+                id="product-quantity"
+                type="number"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+              />
+            </Grid>
 
-        <Typography>Upload an image of your product:</Typography>
-        <Grid item xs={12}>
-          <input
-            accept="image/*"
-            id="image-file"
-            type="file"
-            onChange={handleFileChange}
-            hidden
-          />
-          <label htmlFor="image-file">
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<PhotoCamera />}
-              component="span"
-            >
-              Upload Image
-            </Button>
-          </label>
-        </Grid>
+            <Typography>Upload an image of your product:</Typography>
+            <Grid item xs={12}>
+              <input
+                accept="image/*"
+                id="image-file"
+                type="file"
+                onChange={handleFileChange}
+                hidden
+              />
+              <label htmlFor="image-file">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={<PhotoCamera />}
+                  component="span"
+                >
+                  Upload Image
+                </Button>
+              </label>
+            </Grid>
 
-        <Typography>Upload the .GLB 3D model of your product:</Typography>
-        <Grid item xs={12}>
-          <input
-            accept=".glb"
-            id="model-file"
-            type="file"
-            onChange={handleFileChange}
-            hidden
-          />
-          <label htmlFor="model-file">
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<CloudUploadIcon />}
-              component="span"
-            >
-              Upload Model
-            </Button>
-          </label>
-        </Grid>
+            <Typography>
+              Upload the .GLB/.USDZ 3D model of your product:
+            </Typography>
+            <Grid item xs={12}>
+              <input
+                accept=".glb,.usdz"
+                id="model-file"
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                hidden
+              />
+              <label htmlFor="model-file">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={<CloudUploadIcon />}
+                  component="span"
+                >
+                  Upload Models
+                </Button>
+              </label>
+            </Grid>
 
-        <Grid item xs={12}>
-          <Button
-            id="add-product"
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-          >
-            ADD
-          </Button>
-        </Grid>
-      </Grid>
-    </div>
-    </div>
+            <Grid item xs={12}>
+              <Button
+                id="add-product"
+                variant="contained"
+                color="primary"
+                startIcon={<AddIcon />}
+              >
+                Add
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
+      </div>
     </>
   );
 }
