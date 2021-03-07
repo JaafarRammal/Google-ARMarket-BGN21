@@ -1,8 +1,8 @@
 import "@google/model-viewer";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import Astronaut from "../assets/3DModels/astronaut.glb";
-import AstronautIOS from "../assets/3DModels/astronaut.usdz";
+import Astronaut from "../assets/3DModels/Astronaut.glb";
+import AstronautIOS from "../assets/3DModels/Astronaut.usdz";
 import "./ARView.css";
 
 const useStyles = makeStyles({
