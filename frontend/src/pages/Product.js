@@ -139,7 +139,16 @@ function Product(props) {
             <Card className="ar-wrapper">
               <CardContent>
                 <Map location={location} zoomLevel={17} />
-                <Button className="primary" onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`)}>Open in Google Maps</Button>
+                <Button
+                  className="primary"
+                  onClick={() =>
+                    window.open(
+                      `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`
+                    )
+                  }
+                >
+                  Open in Google Maps
+                </Button>
               </CardContent>
             </Card>
           </Grid>
