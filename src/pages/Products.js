@@ -8,11 +8,10 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useStyles } from "./Styles";
 import "./Products.css";
 import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
 import PhotoAlbum from "@material-ui/icons/PhotoAlbum";
-import Add from "@material-ui/icons/Add";
 import PropTypes from 'prop-types';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Button from "@material-ui/core/Button";
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -44,38 +43,18 @@ function Products(props) {
   return (
     <>
     <ElevationScroll {...props}>
-      <AppBar position="fixed" style={{ background: "#1976D2" }}>
+      <AppBar position="fixed" className="primary">
         <Toolbar>
-        <Typography className={classes.title}><h3>Google ARMarket</h3></Typography>
-          
-          <label htmlFor="icon-button-file">
-            <IconButton
-              style={{ color: "white" }}
-              aria-label="upload picture"
-              component="span"
-            >
-              <PhotoAlbum />
-            </IconButton>
-          </label>
-          <IconButton
-            style={{ color: "white" }}
-            component="span"
-            onClick={() => {
-              const link = window.location.origin + "/add";
-              console.log(link);
-              window.location = link;
-            }}
-          >
-            <Add />
-          </IconButton>
+        <Typography><h3>Google ARMarket</h3></Typography>
         </Toolbar>
       </AppBar>
       </ElevationScroll>
       {/* Decoration container like Firebase one */}
-      <div className="decoration-div">
-        {/* <h3>Google Marketplace</h3> */}
+      <div className="decoration-div" style={{marginBottom: "-120px"}}>
+        <div className="inner-decoration">
         <p style={{fontSize: "x-large"}}>A virtual marketplace for everyone</p>
         <p style={{fontSize: "small"}}>Connect and support small businesses through our immersive shopping experience</p>
+        <br/>
         <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -88,8 +67,28 @@ function Products(props) {
               }}
               inputProps={{ "aria-label": "search" }}
             />
+            {/* <label htmlFor="icon-button-file"> */}
+            <Button
+            htmlFor="icon-button-file"
+            variant="contained"
+            className="primary"
+            style={{marginRight: "13px", padding: "8px 6px 8px 16px" }}
+            startIcon={<PhotoAlbum />}
+          ></Button>
+          <Button
+            variant="contained"
+            className="primary"
+          >Go</Button>
           </div>
-          <div style={{ paddingRight: "5px" }} />
+          <div style={{ height: "10px" }} />
+          <Button className="secondary" variant="contained"
+            onClick={() => {
+              const link = window.location.origin + "/add";
+              console.log(link);
+              window.location = link;
+            }}>Add your own product</Button>
+          
+          
           <input
             accept="image/*"
             className={classes.input}
@@ -97,6 +96,7 @@ function Products(props) {
             type="file"
             style={{ display: "none" }}
           />
+          </div>
       </div>
       <div style={{ flexGrow: 1, overflow: "hidden"}}>
         <Grid container spacing={3} className="products-list">

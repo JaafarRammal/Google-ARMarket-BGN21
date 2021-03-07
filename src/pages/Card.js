@@ -34,7 +34,7 @@ function ProductCard(props) {
     <Card className={classes.root}>
       <CardContent>
         <Grid container spacing={3}>
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <Typography
               className={classes.title}
               color="textSecondary"
@@ -49,7 +49,7 @@ function ProductCard(props) {
               Jaafar Rammal
             </Typography>
           </Grid>
-          <Grid item xs={6} dir="rtl">
+          <Grid item xs={4} dir="rtl">
             <img src={shop} style={{ maxHeight: "80px" }} alt="robot"></img>
           </Grid>
         </Grid>
@@ -66,6 +66,7 @@ function ProductCard(props) {
         >
           View details
         </Button>
+        <div style={{textAlign: "right", width: "40%"}}><h3>£80</h3></div>
       </CardActions>
     </Card>
   );
