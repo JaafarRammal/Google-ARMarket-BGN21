@@ -55,7 +55,11 @@ function ProductCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" variant="contained" style={{background: "#1976D2", color: "white"}}>
+        <Button
+          size="small"
+          variant="contained"
+          style={{ background: "#1976D2", color: "white" }}
+        >
           View details
         </Button>
       </CardActions>

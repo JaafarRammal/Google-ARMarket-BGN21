@@ -53,11 +53,10 @@ function Products(props) {
             style={{ color: "white" }}
             component="span"
             onClick={() => {
-              const link = window.location.origin + "/add"
-              console.log(link)
-              window.location = link
-            }
-            }
+              const link = window.location.origin + "/add";
+              console.log(link);
+              window.location = link;
+            }}
           >
             <Add />
           </IconButton>
