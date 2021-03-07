@@ -12,9 +12,9 @@ img {
 }
 
 .products-list {
-  padding: 20px 20%;
+  padding: 20px 15%;
 }
 
 input {
-  display: 'none',
+  display: "none";
 }
