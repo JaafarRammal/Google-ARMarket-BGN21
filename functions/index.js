@@ -118,13 +118,25 @@ app.post("/api/products", async (req, res) => {
         .then((imageUrl) => {
           // Upload the model to storage
           uploadFileToStorage(model)
-            .then((modelUrl) => {
-              res.json({
+            .then(async (modelUrl) => {
+              // TODO: Add the product and return the added product information
+              const docRef = db.collection("products").doc();
+
+              await docRef.set({
                 name,
                 price,
                 quantity,
-                imageUrl,
-                modelUrl,
+                image_link: imageUrl,
+                model_link: modelUrl,
+              });
+
+              res.json({
+                id: docRef.id,
+                name,
+                price,
+                quantity,
+                image_link: imageUrl,
+                model_link: modelUrl,
               });
             })
             .catch((error) => {
