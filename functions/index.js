@@ -10,7 +10,12 @@ const Product = require("./modules/product.js");
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
+  storageBucket: "bgn-university-hack-rem-1010.appspot.com", // Specify the storage bucket name
 });
+
+// Get the Google Cloud storage object
+const bucket = admin.storage().bucket();
+// console.log("Storage: ", storage);
 
 const app = express();
 const db = admin.firestore();
@@ -89,9 +94,8 @@ app.post("/api/products", async (req, res) => {
       // Get the image
       const image = req.files[0];
       const model = req.files[1];
-
-      // console.log(image.originalname);
-      // console.log(model.originalname);
+      console.log(image);
+      console.log(model);
 
       // const id = req.params.id;
       // const product = await db.collection("products").doc(id);
@@ -101,9 +105,35 @@ app.post("/api/products", async (req, res) => {
       // } else {
       //   res.send(data.data());
       // }
-      res.send(
-        `${name}, ${price}, ${quantity}, ${image.originalname}, ${model.originalname} `
-      );
+
+      // Access the storage bucket
+      // const [files] = await storage.bucket().getFiles();
+      // console.log("Files: ");
+      // files.forEach((file) => {
+      //   console.log(file.name);
+      // });
+
+      // Upload the image to the storage bucket
+      uploadFileToStorage(image)
+        .then((imageUrl) => {
+          // Upload the model to storage
+          uploadFileToStorage(model)
+            .then((modelUrl) => {
+              res.json({
+                name,
+                price,
+                quantity,
+                imageUrl,
+                modelUrl,
+              });
+            })
+            .catch((error) => {
+              res.send(error);
+            });
+        })
+        .catch((error) => {
+          res.send(error);
+        });
     } else {
       res.status(403).send("No image/model files received.");
     }
@@ -139,5 +169,35 @@ app.delete("/api/products", (req, res) => {
     }
   };
 });
+
+// Upload a file to storage
+const uploadFileToStorage = (fileInfo) => {
+  return new Promise((resolve, reject) => {
+    let fileName = `${Date.now()}-${fileInfo.originalname}`;
+    let fileUpload = bucket.file(fileName);
+
+    const blobStream = fileUpload.createWriteStream({
+      metadata: {
+        contentType: fileInfo.mimetype,
+      },
+    });
+
+    blobStream.on("error", (error) => {
+      reject(`Unable to upload file (${fileName}) to the storage bucket`);
+    });
+
+    blobStream.on("finish", async () => {
+      const url = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`;
+
+      // Make the file public
+      await bucket.file(fileName).makePublic();
+      console.log(`Public Uploaded URL: ${url}`);
+
+      resolve(url);
+    });
+
+    blobStream.end(fileInfo.buffer);
+  });
+};
 
 exports.app = functions.https.onRequest(app);
