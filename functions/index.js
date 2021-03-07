@@ -29,7 +29,7 @@ app.get("/api/test", (req, res) => {
 });
 
 // Works
-//get product by id
+// get product by id
 app.get("/api/products/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -46,7 +46,7 @@ app.get("/api/products/:id", async (req, res) => {
 });
 
 // Works
-//get all products
+// get all products
 app.get("/api/products", async (req, res) => {
   try {
     console.log("Fetching data");
@@ -78,7 +78,7 @@ app.get("/api/products", async (req, res) => {
 // TODO: Add a product
 //       Use google cloud storage to store the buffer received into a file
 //       and get the picture link to the file
-//add a product
+// add a product
 app.post("/api/products", async (req, res) => {
   try {
     // Get the relevant information
@@ -154,7 +154,7 @@ app.post("/api/products", async (req, res) => {
   }
 });
 
-//update a product
+// update a product
 app.put("/api/products", (req, res) => {
   async () => {
     try {
@@ -169,7 +169,7 @@ app.put("/api/products", (req, res) => {
   };
 });
 
-//delete a product
+// delete a product
 app.delete("/api/products", (req, res) => {
   async () => {
     try {
@@ -185,8 +185,8 @@ app.delete("/api/products", (req, res) => {
 // Upload a file to storage
 const uploadFileToStorage = (fileInfo) => {
   return new Promise((resolve, reject) => {
-    let fileName = `${Date.now()}-${fileInfo.originalname}`;
-    let fileUpload = bucket.file(fileName);
+    const fileName = `${Date.now()}-${fileInfo.originalname}`;
+    const fileUpload = bucket.file(fileName);
 
     const blobStream = fileUpload.createWriteStream({
       metadata: {
