@@ -1,15 +1,14 @@
 import { Grid, TextField, Typography } from "@material-ui/core";
+import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import Toolbar from "@material-ui/core/Toolbar";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import AddIcon from "@material-ui/icons/Add";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import "./AddProduct.css";
-
 import PropTypes from "prop-types";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import React from "react";
+import "./AddProduct.css";
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -161,12 +160,15 @@ function AddProduct(props) {
               </label>
             </Grid>
 
-            <Typography>Upload the .GLB 3D model of your product:</Typography>
+            <Typography>
+              Upload the .GLB/.USDZ 3D model of your product:
+            </Typography>
             <Grid item xs={12}>
               <input
-                accept=".glb"
+                accept=".glb,.usdz"
                 id="model-file"
                 type="file"
+                multiple
                 onChange={handleFileChange}
                 hidden
               />
@@ -177,7 +179,7 @@ function AddProduct(props) {
                   startIcon={<CloudUploadIcon />}
                   component="span"
                 >
-                  Upload Model
+                  Upload Models
                 </Button>
               </label>
             </Grid>
