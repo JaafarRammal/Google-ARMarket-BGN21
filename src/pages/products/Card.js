@@ -1,10 +1,11 @@
+import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import { Link as RouterLink } from "react-router-dom";
 import shop from "../../assets/images/shop1.png";
 
 const useStyles = makeStyles({
@@ -56,6 +57,8 @@ function ProductCard(props) {
       </CardContent>
       <CardActions>
         <Button
+          component={RouterLink}
+          to={`/products/1`}
           size="small"
           variant="contained"
           style={{ background: "#1976D2", color: "white" }}

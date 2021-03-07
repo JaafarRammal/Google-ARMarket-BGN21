@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+node_modules/
 
 # testing
 /coverage
@@ -23,3 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .firebase
+package-lock.json
+yarn.lock
