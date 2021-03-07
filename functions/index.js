@@ -25,6 +25,18 @@ const db = admin.firestore();
 app.use(cors({ origin: true }));
 app.use(fileParser);
 
+// Remove duplicates in array
+function arrayUnique(array) {
+  let a = array.concat();
+  for (let i = 0; i < a.length; ++i) {
+    for (let j = i + 1; j < a.length; ++j) {
+      if (a[i] === a[j]) a.splice(j--, 1);
+    }
+  }
+
+  return a;
+}
+
 //FUNCTIONAL
 app.get("/api/products/:id", async (req, res) => {
   try {
@@ -68,7 +80,7 @@ app.post("/api/products", async (req, res) => {
     const name = req.body["name"];
     const price = req.body["price"];
     const quantity = req.body["quantity"];
-    const productTags = req.body["tags"];
+    const productTags = JSON.parse(req.body["tags"]);
 
     // Check and the parse the files
     if (req.files.length > 0) {
@@ -82,28 +94,35 @@ app.post("/api/products", async (req, res) => {
           // Upload the model to storage
           uploadFileToStorage(model)
             .then(async (modelUrl) => {
-              // TODO: Add the product and return the added product information
-              const docRef = db.collection("products").doc();
+              getImageTags(imageUrl)
+                .then(async (tags) => {
+                  // TODO: Add the product and return the added product information
+                  const docRef = db.collection("products").doc();
 
-              // Set the properties of the product
-              await docRef.set({
-                name,
-                price,
-                quantity,
-                image_link: imageUrl,
-                model_link: modelUrl,
-                product_tags: productTags,
-              });
+                  // Get the combined tags from the cloud vision API and the product tags provided
+                  let combinedTags = arrayUnique(productTags.concat(tags));
 
-              res.json({
-                id: docRef.id,
-                name,
-                price,
-                quantity,
-                image_link: imageUrl,
-                model_link: modelUrl,
-                product_tags: productTags,
-              });
+                  // Set the properties of the product
+                  await docRef.set({
+                    name,
+                    price,
+                    quantity,
+                    image_link: imageUrl,
+                    model_link: modelUrl,
+                    product_tags: combinedTags,
+                  });
+
+                  res.json({
+                    id: docRef.id,
+                    name,
+                    price,
+                    quantity,
+                    image_link: imageUrl,
+                    model_link: modelUrl,
+                    product_tags: combinedTags,
+                  });
+                })
+                .catch((error) => res.status(500).send(error.message));
             })
             .catch((error) => {
               res.send(error);
