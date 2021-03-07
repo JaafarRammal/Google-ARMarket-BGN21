@@ -252,5 +252,100 @@ function getProductIDs(object_tags) {
       .catch((error) => reject(error));
   });
 }
+// ----------------------- SELLER ----------------------------
 
+// add a seller
+app.post('/api/sellers', (req, res) => {
+  (async () => {
+      try {
+          const latitude = req.body.latitude;
+          const longitude = req.body.longitude;
+          const owner = req.body["owner"];
+          const name = req.body["name"];
+          await db.collection('sellers').doc().set({name,location: new admin.firestore.GeoPoint(Number(latitude),Number(longitude)),owner});
+          res.send("Added successfully")
+      } catch (error) {
+          res.status(400).send(error.message);
+      }
+  })();
+});
+
+//fetch all sellers
+app.get('/api/sellers', async (req, res , next ) => {
+      try {
+          const sellers = await db.collection('sellers');
+          const data = await sellers.get();
+          const sellersArray = [];
+          if (data.empty) {
+              res.status(404).send("No sellers in the table");
+
+          } else{
+              data.forEach(doc => {
+                  const seller = new Seller(
+                      doc.sellerID,
+                      doc.data().location,
+                      doc.data().name,
+                      doc.data().owner
+                  );
+                  sellersArray.push(seller);
+              });
+              res.send(sellersArray)
+          }
+
+      } catch (error) {
+          res.status(400).send(error.message);
+      }
+  ;
+});
+
+//get by id
+app.put('/api/sellers/:id', async (req, res, next) => {
+ 
+      try {
+          const id = req.params.id;
+          const latitude = req.body.latitude;
+          const longitude = req.body.longitude;
+      
+          const seller =  await db.collection('sellers').doc(id);
+          await seller.update({
+            location: new admin.firestore.GeoPoint(Number(latitude),Number(longitude)),
+            name: req.body.name,
+            owner: req.body.owner
+          });
+          res.send('Seller record updated.'); 
+      } catch (error) {
+          res.status(400).send(error.message);
+      }
+  
+});
+
+//delete a seller
+app.delete('/api/sellers/:id', async (req, res) => {
+  
+      try {
+          const id = req.params.id;
+          await db.collection('sellers').doc(id).delete();
+          res.send('Record deleted successfuly');
+      } catch (error) {
+          res.status(400).send(error.message);
+      }
+  }
+);
+
+//get seller by id
+app.get('/api/sellers/:id', async (req, res) => {
+      try {
+          const id = req.params.id;
+          const seller = await db.collection('sellers').doc(id);
+          const data = await seller.get();
+          if (!data.exists) {
+              res.status(404).send('No such product has been found');
+          } else {
+              res.send(data.data());
+          }
+      } catch (error) {
+          res.status(400).send(error.message);
+      }
+  ;
+});
 exports.app = functions.https.onRequest(app);
