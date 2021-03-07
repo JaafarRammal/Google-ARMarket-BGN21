@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     minWidth: 275,
     padding: "5px 5px 10px 5px",
     boxShadow: "4px 3px 8px 1px #969696",
-    webkitBoxShadow: "4px 3px 8px 1px #969696"
+    webkitBoxShadow: "4px 3px 8px 1px #969696",
   },
   bullet: {
     display: "inline-block",
@@ -66,7 +66,9 @@ function ProductCard(props) {
         >
           View details
         </Button>
-        <div style={{textAlign: "right", width: "40%"}}><h3>£80</h3></div>
+        <div style={{ textAlign: "right", width: "40%" }}>
+          <h3>£80</h3>
+        </div>
       </CardActions>
     </Card>
   );

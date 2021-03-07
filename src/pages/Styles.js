@@ -16,13 +16,13 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: fade(theme.palette.common.black, 0.15),
     marginLeft: 0,
     width: "370px",
-    padding: "10px"
+    padding: "10px",
   },
   searchIcon: {
     height: "100%",
     position: "absolute",
     pointerEvents: "none",
-    paddingTop: "7px"
+    paddingTop: "7px",
     // display: "flex",
     // alignItems: "center",
     // justifyContent: "center",

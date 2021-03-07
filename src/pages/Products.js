@@ -9,9 +9,10 @@ import { useStyles } from "./Styles";
 import "./Products.css";
 import Grid from "@material-ui/core/Grid";
 import PhotoAlbum from "@material-ui/icons/PhotoAlbum";
-import PropTypes from 'prop-types';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import PropTypes from "prop-types";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Button from "@material-ui/core/Button";
+import Logo from "../assets/logo512.png";
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -42,20 +43,28 @@ function Products(props) {
   const classes = useStyles();
   return (
     <>
-    <ElevationScroll {...props}>
-      <AppBar position="fixed" className="primary">
-        <Toolbar>
-        <Typography><h3>Google ARMarket</h3></Typography>
-        </Toolbar>
-      </AppBar>
+      <ElevationScroll {...props}>
+        <AppBar position="fixed" className="primary">
+          <Toolbar>
+            <img src={Logo} alt="logo" style={{maxHeight: "30px", paddingRight: "15px"}}/>
+            <Typography>
+              <h3>Google ARMarket</h3>
+            </Typography>
+          </Toolbar>
+        </AppBar>
       </ElevationScroll>
       {/* Decoration container like Firebase one */}
-      <div className="decoration-div" style={{marginBottom: "-120px"}}>
+      <div className="decoration-div" style={{ marginBottom: "-120px" }}>
         <div className="inner-decoration">
-        <p style={{fontSize: "x-large"}}>A virtual marketplace for everyone</p>
-        <p style={{fontSize: "small"}}>Connect and support small businesses through our immersive shopping experience</p>
-        <br/>
-        <div className={classes.search}>
+          <p style={{ fontSize: "x-large" }}>
+            A virtual marketplace for everyone
+          </p>
+          <p style={{ fontSize: "small" }}>
+            Connect and support small businesses through our immersive shopping
+            experience
+          </p>
+          <br />
+          <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -69,26 +78,29 @@ function Products(props) {
             />
             {/* <label htmlFor="icon-button-file"> */}
             <Button
-            htmlFor="icon-button-file"
-            variant="contained"
-            className="primary"
-            style={{marginRight: "13px", padding: "8px 6px 8px 16px" }}
-            startIcon={<PhotoAlbum />}
-          ></Button>
-          <Button
-            variant="contained"
-            className="primary"
-          >Go</Button>
+              htmlFor="icon-button-file"
+              variant="contained"
+              className="primary"
+              style={{ marginRight: "13px", padding: "8px 6px 8px 16px" }}
+              startIcon={<PhotoAlbum />}
+            ></Button>
+            <Button variant="contained" className="primary">
+              Go
+            </Button>
           </div>
           <div style={{ height: "10px" }} />
-          <Button className="secondary" variant="contained"
+          <Button
+            className="secondary"
+            variant="contained"
             onClick={() => {
               const link = window.location.origin + "/add";
               console.log(link);
               window.location = link;
-            }}>Add your own product</Button>
-          
-          
+            }}
+          >
+            Add your own product
+          </Button>
+
           <input
             accept="image/*"
             className={classes.input}
@@ -96,9 +108,9 @@ function Products(props) {
             type="file"
             style={{ display: "none" }}
           />
-          </div>
+        </div>
       </div>
-      <div style={{ flexGrow: 1, overflow: "hidden"}}>
+      <div style={{ flexGrow: 1, overflow: "hidden" }}>
         <Grid container spacing={3} className="products-list">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
             <Grid item xs>
