@@ -5,6 +5,7 @@ class Product {
     this.id = id;
     // this.colour = colour;
     // this.size = size;
+    this.name = name;
     this.price = price;
     this.quantity = quantity;
     this.imageLink = imageLink;
