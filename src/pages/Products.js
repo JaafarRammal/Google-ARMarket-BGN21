@@ -54,7 +54,7 @@ function Products(props) {
         </AppBar>
       </ElevationScroll>
       {/* Decoration container like Firebase one */}
-      <div className="decoration-div" style={{ marginBottom: "-120px" }}>
+      <div className="decoration-div" style={{ marginBottom: "-80px" }}>
         <div className="inner-decoration">
           <p style={{ fontSize: "x-large" }}>
             A virtual marketplace for everyone
@@ -77,21 +77,22 @@ function Products(props) {
               inputProps={{ "aria-label": "search" }}
             />
             {/* <label htmlFor="icon-button-file"> */}
-            <Button
-              htmlFor="icon-button-file"
-              variant="contained"
-              className="primary"
-              style={{ marginRight: "13px", padding: "8px 6px 8px 16px" }}
-              startIcon={<PhotoAlbum />}
-            ></Button>
-            <Button variant="contained" className="primary">
+            <Button variant="contained" className="primary" style={{position: "absolute"}}>
               Go
             </Button>
           </div>
           <div style={{ height: "10px" }} />
           <Button
+              htmlFor="icon-button-file"
+              variant="contained"
+              className="primary"
+              style={{ marginBottom: "13px", padding: "6px 16px", marginRight: "13px" }}
+              startIcon={<PhotoAlbum />}
+            >Search by image</Button>
+          <Button
             className="secondary"
             variant="contained"
+            style={{ marginBottom: "13px", padding: "6px 16px" }}
             onClick={() => {
               const link = window.location.origin + "/add";
               console.log(link);
@@ -110,7 +111,7 @@ function Products(props) {
           />
         </div>
       </div>
-      <div style={{ flexGrow: 1, overflow: "hidden" }}>
+      <div style={{ flexGrow: 1, overflow: "hidden", paddingTop: "10px" }}>
         <Grid container spacing={3} className="products-list">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
             <Grid item xs>

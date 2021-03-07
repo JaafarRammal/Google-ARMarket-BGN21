@@ -10,7 +10,7 @@ import shop from "../assets/images/shop1.png";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
+    minWidth: 220,
     padding: "5px 5px 10px 5px",
     boxShadow: "4px 3px 8px 1px #969696",
     webkitBoxShadow: "4px 3px 8px 1px #969696",
@@ -64,7 +64,7 @@ function ProductCard(props) {
           variant="contained"
           className="primary"
         >
-          View details
+          Explore
         </Button>
         <div style={{ textAlign: "right", width: "40%" }}>
           <h3>£80</h3>

@@ -15,7 +15,7 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.black, 0.15),
     marginLeft: 0,
-    width: "370px",
+    maxWidth: "300px",
     padding: "10px",
   },
   searchIcon: {
