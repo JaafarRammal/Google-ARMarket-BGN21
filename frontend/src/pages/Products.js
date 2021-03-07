@@ -1,18 +1,18 @@
-import React from "react";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import ProductCard from "./Card";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import SearchIcon from "@material-ui/icons/Search";
-import { useStyles } from "./Styles";
-import "./Products.css";
-import Grid from "@material-ui/core/Grid";
-import PhotoAlbum from "@material-ui/icons/PhotoAlbum";
-import PropTypes from "prop-types";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import InputBase from "@material-ui/core/InputBase";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import PhotoAlbum from "@material-ui/icons/PhotoAlbum";
+import SearchIcon from "@material-ui/icons/Search";
+import PropTypes from "prop-types";
+import React from "react";
 import Logo from "../assets/logo512.png";
+import ProductCard from "./Card";
+import "./Products.css";
+import { useStyles } from "./Styles";
 
 function ElevationScroll(props) {
   const { children, window } = props;
@@ -51,9 +51,7 @@ function Products(props) {
               alt="logo"
               style={{ maxHeight: "30px", paddingRight: "15px" }}
             />
-            <Typography>
-              <h3>Google ARMarket</h3>
-            </Typography>
+            <Typography component="h3">Google ARMarket</Typography>
           </Toolbar>
         </AppBar>
       </ElevationScroll>

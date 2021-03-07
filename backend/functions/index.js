@@ -75,62 +75,82 @@ app.get("/api/products", async (req, res) => {
 //FUNCTIONAL
 app.post("/api/products", async (req, res) => {
   try {
+    console.log("Hit endpoint");
     // Get the relevant information
-    // console.log(req.body);
     const name = req.body["name"];
-    const price = req.body["price"];
-    const quantity = req.body["quantity"];
-    const productTags = JSON.parse(req.body["tags"]);
+    const description = req.body["description"];
+    const price = Number(req.body["price"]);
+    const quantity = Number(req.body["quantity"]);
+    const productTags = req.body["tags"].split(",").map((i) => i.trim());
 
     // Check and the parse the files
     if (req.files.length > 0) {
       // Get the image
-      const image = req.files[0];
-      const model = req.files[1];
+      const image = req.files.filter((f) => f.fieldname === "imageFile")[0];
 
-      // Upload the image to the storage bucket
-      uploadFileToStorage(image)
-        .then((imageUrl) => {
-          // Upload the model to storage
-          uploadFileToStorage(model)
-            .then(async (modelUrl) => {
-              getImageTags(imageUrl)
-                .then(async (tags) => {
-                  // TODO: Add the product and return the added product information
-                  const docRef = db.collection("products").doc();
+      // Get models
+      const glbModel = req.files.filter((f) => f.fieldname === "glbFile");
+      const usdzModel = req.files.filter((f) => f.fieldname === "usdzFile");
 
-                  // Get the combined tags from the cloud vision API and the product tags provided
-                  let combinedTags = arrayUnique(productTags.concat(tags));
+      // Upload the image to storage.
+      const imageUrl = await uploadFileToStorage(image);
+      console.log("Result of image: ", imageUrl);
 
-                  // Set the properties of the product
-                  await docRef.set({
-                    name,
-                    price,
-                    quantity,
-                    image_link: imageUrl,
-                    model_link: modelUrl,
-                    product_tags: combinedTags,
-                  });
+      // Upload the models.
+      let glbLink = "";
+      let usdzLink = "";
+      if (glbModel.length > 0) {
+        glbLink = await uploadFileToStorage(glbModel[0]);
+      }
 
-                  res.json({
-                    id: docRef.id,
-                    name,
-                    price,
-                    quantity,
-                    image_link: imageUrl,
-                    model_link: modelUrl,
-                    product_tags: combinedTags,
-                  });
-                })
-                .catch((error) => res.status(500).send(error.message));
-            })
-            .catch((error) => {
-              res.send(error);
-            });
-        })
-        .catch((error) => {
-          res.send(error);
-        });
+      if (usdzModel.length > 0) {
+        usdzLink = await uploadFileToStorage(usdzModel[0]);
+      }
+
+      // Get image tags.
+      if (imageUrl) {
+        const imageTags = await getImageTags(imageUrl);
+
+        if (imageTags) {
+          // TODO: Add the product and return the added product information
+          const docRef = db.collection("products").doc();
+
+          // Get the combined tags from the cloud vision API and the product tags provided
+          let combinedTags = arrayUnique(productTags.concat(imageTags));
+
+          // Set the properties of the product
+          await docRef.set({
+            name,
+            description,
+            price,
+            quantity,
+            image_link: imageUrl,
+            models: {
+              glb_link: glbLink,
+              usdz_link: usdzLink,
+            },
+            product_tags: combinedTags,
+          });
+
+          res.json({
+            id: docRef.id,
+            name,
+            description,
+            price,
+            quantity,
+            image_link: imageUrl,
+            models: {
+              glb_link: glbLink,
+              usdz_link: usdzLink,
+            },
+            product_tags: combinedTags,
+          });
+        } else {
+          res.status(500).send("Unable to get image tags");
+        }
+      } else {
+        res.send("No image url provided");
+      }
     } else {
       res.status(403).send("No image/model files received.");
     }
@@ -250,7 +270,8 @@ const uploadFileToStorage = (fileInfo) => {
     });
 
     blobStream.on("error", (error) => {
-      reject(`Unable to upload file (${fileName}) to the storage bucket`);
+      console.log(`Unable to upload file (${fileName}) to the storage bucket`);
+      reject(null);
     });
 
     blobStream.on("finish", async () => {

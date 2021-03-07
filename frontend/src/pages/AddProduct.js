@@ -37,36 +37,107 @@ ElevationScroll.propTypes = {
 };
 
 function AddProduct(props) {
-  const getFileFromInput = (file) => {
-    return new Promise(function (resolve, reject) {
-      const reader = new FileReader();
-      reader.onerror = reject;
-      reader.onload = function () {
-        resolve(reader.result);
-      };
-      reader.readAsBinaryString(file);
-    });
-  };
+  // Files to upload
+  const [imageFile, setImageFile] = React.useState(null);
+  const [modelFiles, setModelFiles] = React.useState({
+    glb: null,
+    usdz: null,
+  });
 
-  const manageUploadedFile = (binary, file) => {
-    console.log("File name: ", file.name);
-    console.log("File size: ", binary.length);
-  };
+  const nameRef = React.useRef();
+  const priceRef = React.useRef();
+  const quantityRef = React.useRef();
+  const tagsRef = React.useRef();
+
+  // Parse a file as binary
+  // const getFileFromInput = (file) => {
+  //   return new Promise(function (resolve, reject) {
+  //     const reader = new FileReader();
+  //     reader.onerror = reject;
+  //     reader.onload = function () {
+  //       resolve(reader.result);
+  //     };
+  //     reader.readAsBinaryString(file);
+  //   });
+  // };
+
+  // const manageUploadedFile = (binary, file) => {
+  //   console.log("File name: ", file.name);
+  //   console.log("File size: ", binary.length);
+
+  // };
+
+  React.useEffect(() => {
+    console.log("Current files: ", imageFile, modelFiles);
+  }, [imageFile, modelFiles]);
 
   // Handle file change
-  const handleFileChange = (event) => {
+  const handleFileChange = (event, type) => {
+    console.log(event, type);
     event.persist();
 
-    Array.from(event.target.files).forEach((file) => {
-      getFileFromInput(file)
-        .then((binary) => {
-          manageUploadedFile(binary, file);
-        })
-        .catch(function (err) {
-          console.log(err);
-          event.target.value = "";
-        });
-    });
+    // Add the files to the state
+    if (type === "image") {
+      setImageFile(event.target.files[0]);
+    } else if (type === "models") {
+      Array.from(event.target.files).forEach((file) => {
+        if (file.name.endsWith(".glb")) {
+          console.log("Match");
+          setModelFiles((prev) => ({ ...prev, glb: file }));
+        } else if (file.name.endsWith(".usdz")) {
+          setModelFiles((prev) => ({ ...prev, usdz: file }));
+        }
+      });
+    }
+  };
+
+  const handleAdd = () => {
+    console.log("Add files");
+
+    // Create the form data and send it
+    const productData = new FormData();
+    productData.append("name", nameRef.current.value);
+    productData.append("price", priceRef.current.value);
+    productData.append("quantity", quantityRef.current.value);
+    productData.append("tags", tagsRef.current.value);
+
+    // Display the key/value pairs
+    for (var pair of productData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+
+    // Append the files
+    if (imageFile) {
+      productData.append("imageFile", imageFile);
+    }
+
+    if (modelFiles.glb) {
+      productData.append("glbFile", modelFiles.glb);
+    }
+
+    if (modelFiles.usdz) {
+      productData.append("usdzFile", modelFiles.usdz);
+    }
+
+    // .forEach((file) => {
+    // getFileFromInput(file)
+    //   .then((binary) => {
+    //     // manageUploadedFile(binary, file);
+    //   })
+    //   .catch(function (err) {
+    //     console.log(err);
+    //     event.target.value = "";
+    //   });
+    // });
+
+    // Send a POST fetch request with the data
+    fetch(
+      "http://localhost:5001/bgn-university-hack-rem-1010/us-central1/app/api/products",
+      {
+        method: "POST",
+        body: productData,
+      }
+    );
   };
 
   return (
@@ -79,9 +150,7 @@ function AddProduct(props) {
               alt="logo"
               style={{ maxHeight: "30px", paddingRight: "15px" }}
             />
-            <Typography>
-              <h3>Google ARMarket</h3>
-            </Typography>
+            <Typography component="h3">Google ARMarket</Typography>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
@@ -118,6 +187,7 @@ function AddProduct(props) {
                 fullWidth
                 margin="normal"
                 variant="outlined"
+                inputRef={nameRef}
               />
             </Grid>
 
@@ -130,6 +200,7 @@ function AddProduct(props) {
                 fullWidth
                 margin="normal"
                 variant="outlined"
+                inputRef={priceRef}
               />
             </Grid>
 
@@ -142,6 +213,23 @@ function AddProduct(props) {
                 fullWidth
                 margin="normal"
                 variant="outlined"
+                inputRef={quantityRef}
+              />
+            </Grid>
+
+            <Typography>
+              Enter tags for your product, separated with commas (i.e. chair,
+              furniture):
+            </Typography>
+            <Grid item xs={12}>
+              <TextField
+                label="Product Tags"
+                required
+                id="product-tags"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                inputRef={tagsRef}
               />
             </Grid>
 
@@ -151,7 +239,7 @@ function AddProduct(props) {
                 accept="image/*"
                 id="image-file"
                 type="file"
-                onChange={handleFileChange}
+                onChange={(event) => handleFileChange(event, "image")}
                 hidden
               />
               <label htmlFor="image-file">
@@ -175,7 +263,7 @@ function AddProduct(props) {
                 id="model-file"
                 type="file"
                 multiple
-                onChange={handleFileChange}
+                onChange={(event) => handleFileChange(event, "models")}
                 hidden
               />
               <label htmlFor="model-file">
@@ -196,8 +284,9 @@ function AddProduct(props) {
                 variant="contained"
                 className="secondary"
                 startIcon={<AddIcon />}
+                onClick={handleAdd}
               >
-                ADD
+                Add
               </Button>
             </Grid>
           </Grid>
