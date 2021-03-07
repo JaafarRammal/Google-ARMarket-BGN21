@@ -31,7 +31,7 @@ const ARView = () => {
         camera-controls
         ar
         ar-scale="auto"
-        ar-modes="scene-viewer webxr quick-look"
+        ar-modes="webxr scene-viewer quick-look"
         ios-src={AstronautIOS}
         // TODO: Use the image of the product as the poster when the model is loading
       >
