@@ -66,6 +66,7 @@ function ProductCard(props) {
         >
           View details
         </Button>
+        <div style={{textAlign: "right", width: "40%"}}><h3>£80</h3></div>
       </CardActions>
     </Card>
   );
