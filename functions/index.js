@@ -8,6 +8,8 @@ const fileParser = require("express-multipart-file-parser");
 const { service } = require("firebase-functions/lib/providers/analytics");
 const Product = require("./modules/product.js");
 
+const { getImageTags } = require("./utils/cloud");
+
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
   storageBucket: "bgn-university-hack-rem-1010.appspot.com", // Specify the storage bucket name
@@ -83,6 +85,7 @@ app.post("/api/products", async (req, res) => {
               // TODO: Add the product and return the added product information
               const docRef = db.collection("products").doc();
 
+              // Set the properties of the product
               await docRef.set({
                 name,
                 price,
@@ -183,6 +186,8 @@ app.post("/api/imgquery", async (req, res) => {
   try {
     const imgUrl = req.body["url"];
     console.log(imgUrl);
+
+    // Get the image tags
     getImageTags(imgUrl)
       .then((object_tags) => {
         getProductIDs(object_tags)
@@ -190,6 +195,22 @@ app.post("/api/imgquery", async (req, res) => {
             res.status(200).send(product_ids);
           })
           .catch((error) => res.status(400).send(error.message));
+      })
+      .catch((error) => res.status(400).send(error.message));
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
+app.post("/api/imgQueryUrl", async (req, res) => {
+  try {
+    const imgUrl = req.body["url"];
+    console.log(imgUrl);
+
+    // Get the image tags
+    getImageTags(imgUrl)
+      .then((object_tags) => {
+        res.status(200).json({ tags: object_tags });
       })
       .catch((error) => res.status(400).send(error.message));
   } catch (error) {
@@ -230,7 +251,10 @@ const uploadFileToStorage = (fileInfo) => {
 //FUNCTIONAL
 function getProductIDs(object_tags) {
   return new Promise(function (resolve, reject) {
+    console.log("Checking tags: ", object_tags);
+
     product_ids = [];
+
     db.collection("products")
       .get()
       .then((products) => {
@@ -238,7 +262,7 @@ function getProductIDs(object_tags) {
           id = doc.id;
           tags = doc.data().product_tags;
           console.log(tags);
-          console.log(object_tags);
+
           ans = object_tags.some(function (e1) {
             return tags.includes(e1);
           });
@@ -255,97 +279,102 @@ function getProductIDs(object_tags) {
 // ----------------------- SELLER ----------------------------
 
 // add a seller
-app.post('/api/sellers', (req, res) => {
+app.post("/api/sellers", (req, res) => {
   (async () => {
-      try {
-          const latitude = req.body.latitude;
-          const longitude = req.body.longitude;
-          const owner = req.body["owner"];
-          const name = req.body["name"];
-          await db.collection('sellers').doc().set({name,location: new admin.firestore.GeoPoint(Number(latitude),Number(longitude)),owner});
-          res.send("Added successfully")
-      } catch (error) {
-          res.status(400).send(error.message);
-      }
+    try {
+      const latitude = req.body.latitude;
+      const longitude = req.body.longitude;
+      const owner = req.body["owner"];
+      const name = req.body["name"];
+      await db
+        .collection("sellers")
+        .doc()
+        .set({
+          name,
+          location: new admin.firestore.GeoPoint(
+            Number(latitude),
+            Number(longitude)
+          ),
+          owner,
+        });
+      res.send("Added successfully");
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
   })();
 });
 
 //fetch all sellers
-app.get('/api/sellers', async (req, res , next ) => {
-      try {
-          const sellers = await db.collection('sellers');
-          const data = await sellers.get();
-          const sellersArray = [];
-          if (data.empty) {
-              res.status(404).send("No sellers in the table");
-
-          } else{
-              data.forEach(doc => {
-                  const seller = new Seller(
-                      doc.sellerID,
-                      doc.data().location,
-                      doc.data().name,
-                      doc.data().owner
-                  );
-                  sellersArray.push(seller);
-              });
-              res.send(sellersArray)
-          }
-
-      } catch (error) {
-          res.status(400).send(error.message);
-      }
-  ;
+app.get("/api/sellers", async (req, res, next) => {
+  try {
+    const sellers = await db.collection("sellers");
+    const data = await sellers.get();
+    const sellersArray = [];
+    if (data.empty) {
+      res.status(404).send("No sellers in the table");
+    } else {
+      data.forEach((doc) => {
+        const seller = new Seller(
+          doc.sellerID,
+          doc.data().location,
+          doc.data().name,
+          doc.data().owner
+        );
+        sellersArray.push(seller);
+      });
+      res.send(sellersArray);
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 
 //get by id
-app.put('/api/sellers/:id', async (req, res, next) => {
- 
-      try {
-          const id = req.params.id;
-          const latitude = req.body.latitude;
-          const longitude = req.body.longitude;
-      
-          const seller =  await db.collection('sellers').doc(id);
-          await seller.update({
-            location: new admin.firestore.GeoPoint(Number(latitude),Number(longitude)),
-            name: req.body.name,
-            owner: req.body.owner
-          });
-          res.send('Seller record updated.'); 
-      } catch (error) {
-          res.status(400).send(error.message);
-      }
-  
+app.put("/api/sellers/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const latitude = req.body.latitude;
+    const longitude = req.body.longitude;
+
+    const seller = await db.collection("sellers").doc(id);
+    await seller.update({
+      location: new admin.firestore.GeoPoint(
+        Number(latitude),
+        Number(longitude)
+      ),
+      name: req.body.name,
+      owner: req.body.owner,
+    });
+    res.send("Seller record updated.");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 
 //delete a seller
-app.delete('/api/sellers/:id', async (req, res) => {
-  
-      try {
-          const id = req.params.id;
-          await db.collection('sellers').doc(id).delete();
-          res.send('Record deleted successfuly');
-      } catch (error) {
-          res.status(400).send(error.message);
-      }
+app.delete("/api/sellers/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    await db.collection("sellers").doc(id).delete();
+    res.send("Record deleted successfuly");
+  } catch (error) {
+    res.status(400).send(error.message);
   }
-);
+});
 
 //get seller by id
-app.get('/api/sellers/:id', async (req, res) => {
-      try {
-          const id = req.params.id;
-          const seller = await db.collection('sellers').doc(id);
-          const data = await seller.get();
-          if (!data.exists) {
-              res.status(404).send('No such product has been found');
-          } else {
-              res.send(data.data());
-          }
-      } catch (error) {
-          res.status(400).send(error.message);
-      }
-  ;
+app.get("/api/sellers/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const seller = await db.collection("sellers").doc(id);
+    const data = await seller.get();
+    if (!data.exists) {
+      res.status(404).send("No such product has been found");
+    } else {
+      res.send(data.data());
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 });
 exports.app = functions.https.onRequest(app);
