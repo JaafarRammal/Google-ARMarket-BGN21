@@ -161,7 +161,7 @@ function AddProduct(props) {
             </Grid>
 
             <Typography>
-              Upload the .GLB/.USDZ 3D model of your product:
+              Upload the .GLB/.USDZ 3D models for your product:
             </Typography>
             <Grid item xs={12}>
               <input
