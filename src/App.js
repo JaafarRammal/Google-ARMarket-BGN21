@@ -9,7 +9,7 @@ import {
 import "./App.css";
 import AddProduct from "./pages/AddProduct";
 import Product from "./pages/Product";
-import Products from "./pages/Products";
+import Products from "./pages/products/Products";
 
 // <div class="imgbox">
 //   <model-viewer
