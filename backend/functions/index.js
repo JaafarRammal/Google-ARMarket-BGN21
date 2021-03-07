@@ -80,6 +80,7 @@ app.post("/api/products", async (req, res) => {
     const name = req.body["name"];
     const price = req.body["price"];
     const quantity = req.body["quantity"];
+    const description = req.body["description"];
     const productTags = JSON.parse(req.body["tags"]);
 
     // Check and the parse the files
@@ -109,6 +110,7 @@ app.post("/api/products", async (req, res) => {
                     quantity,
                     image_link: imageUrl,
                     model_link: modelUrl,
+                    description,
                     product_tags: combinedTags,
                   });
 
@@ -119,6 +121,7 @@ app.post("/api/products", async (req, res) => {
                     quantity,
                     image_link: imageUrl,
                     model_link: modelUrl,
+                    description: description,
                     product_tags: combinedTags,
                   });
                 })
