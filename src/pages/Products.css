@@ -1,0 +1,11 @@
+img {
+  max-height: 200px;
+}
+
+.products-list {
+  padding: 20px 15%;
+}
+
+input {
+  display: "none";
+}

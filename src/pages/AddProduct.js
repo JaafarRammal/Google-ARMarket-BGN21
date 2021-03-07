@@ -1,11 +1,42 @@
-import { Grid, Paper, TextField, Typography } from "@material-ui/core";
+import { Grid, TextField, Typography } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import "./AddProduct.css"
 
-function AddProduct() {
+import PropTypes from 'prop-types';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+
+function ElevationScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+}
+
+ElevationScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
+function AddProduct(props) {
   const getFileFromInput = (file) => {
     return new Promise(function (resolve, reject) {
       const reader = new FileReader();
@@ -39,7 +70,16 @@ function AddProduct() {
   };
 
   return (
-    <Paper square>
+    <><ElevationScroll {...props}><AppBar position="fixed" style={{ background: "#1976D2" }}>
+        <Toolbar>
+        <Typography><h3>Google Marketplace</h3></Typography>
+        </Toolbar>
+      </AppBar></ElevationScroll>
+      <div className="decoration-div" style={{textAlign: "center"}}>
+        <p style={{fontSize: "x-large"}}>Add your product to the market!</p>
+      </div>
+    <div className="paper-container">
+    <div className="add-container">
       <Grid
         container
         direction="column"
@@ -47,13 +87,13 @@ function AddProduct() {
         alignItems="center"
         spacing={3}
       >
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Typography variant="h3">Add Product</Typography>
         </Grid>
 
         <Grid item xs={12}>
           Add a product to your business:
-        </Grid>
+        </Grid> */}
 
         <Grid item xs={12}>
           <TextField
@@ -143,7 +183,9 @@ function AddProduct() {
           </Button>
         </Grid>
       </Grid>
-    </Paper>
+    </div>
+    </div>
+    </>
   );
 }
 

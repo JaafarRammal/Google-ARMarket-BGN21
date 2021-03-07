@@ -8,7 +8,7 @@ import {
 import "./App.css";
 import AddProduct from "./pages/AddProduct";
 import Product from "./pages/Product";
-import Products from "./pages/products/Products";
+import Products from "./pages/Products";
 
 function App() {
   return (

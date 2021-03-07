@@ -6,12 +6,14 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Link as RouterLink } from "react-router-dom";
-import shop from "../../assets/images/shop1.png";
+import shop from "../assets/images/shop1.png";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     padding: "5px 5px 10px 5px",
+    boxShadow: "4px 3px 8px 1px #969696",
+    webkitBoxShadow: "4px 3px 8px 1px #969696"
   },
   bullet: {
     display: "inline-block",
@@ -59,9 +61,8 @@ function ProductCard(props) {
         <Button
           component={RouterLink}
           to={`/products/1`}
-          size="small"
           variant="contained"
-          style={{ background: "#1976D2", color: "white" }}
+          className="primary"
         >
           View details
         </Button>
