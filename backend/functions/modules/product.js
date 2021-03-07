@@ -1,7 +1,7 @@
 /* eslint-disable require-jsdoc */
 class Product {
   //   constructor(id, colour, size, objectFile, price, quantity) {
-  constructor(id, name, price, quantity, imageLink, modelLink, productTags) {
+  constructor(id, name, price, quantity, imageLink, modelLink, productTags, description) {
     this.id = id;
     // this.colour = colour;
     // this.size = size;
@@ -10,6 +10,7 @@ class Product {
     this.quantity = quantity;
     this.imageLink = imageLink;
     this.modelLink = modelLink;
+    this.description = description;
     this.productTags = productTags;
   }
 }
