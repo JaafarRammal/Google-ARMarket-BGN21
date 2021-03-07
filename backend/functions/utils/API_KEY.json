@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "bgn-university-hack-rem-1010",
+    "private_key_id": "05b616fa94b6487c32eaa71dd1f4e83f06006ccf",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDQC3iIl3k+oap1\nL5DUiajhBfYyM6eRPnYBA+Irv1aluq1MytnxlcWEdBplzOpA/W0aoSNwcoJFHGIU\nu50LhZDPHwKykjF4e6BhMdm+fOlceoJLEMXjos54uGDClAoGO0tlFvdkys6cIdj6\nrLyQjZwovND3dHrp+HIwrZcKSpgw2ETNKOQUl8R8b7W9mAb7OnuRNxhwvr3KWbC8\nvULVqHtrX/DCBBxCdI19fbu0gD3DlKamQ/R6jbCQfxsVO+W6s97iMFEe5wE5MV/x\n6MAr7lI8EpXV3iufkiYFY6t//yL+f/Xf+6j9sBJMoQLWLF/vACZ0agMqEwZlZhhX\nXpyrEtavAgMBAAECggEAEdcHTns4EpFYEHV0OhgrNaSbuyv9G1zbpJ75zDOQ/A7Z\nIS58kuqmGy4TkhWIzurhv2NVqnpUm8A2fuhPAWJs4P3xRBvPhzE0DFxIe5Jdi9MW\nN4FS3tV4AW0aIFqueLX+nfFiudoUQ9o5L4G+0mHPpBn7jK9d15C48LNUsjVkUz0e\nIFuCwOrvrlLKSMUSd3pvG+WlmlxRs1Awy8PhXVCbehE1a4llGNYyvFodjDLJrAiO\nTCByqcNW0ga9iiHmtlBQocEl9KKHKxNX5iO+ND0R5fTGOBO1jT18UKlrA4LfoNnR\nZrfKfsMpKbjvVYwPrRgSA8hph+jDxtmaOpb8OAW6sQKBgQDuvg0OALjJe3blwtSj\nrHZJxDhLrdXuB6e8SpdrE060oKvZLwuxNBA7eYCb7VicFHkQSTOxIt20hLfe3VcQ\nf+0S1421pWDv057WZcxlrf5214ui3xMOAf2izYvbjQuxqhryQ6ur6QPQCW42/LHu\nDq4mHvmgvbZeYOFqIilGEZUUPwKBgQDfFVvB1SS/eC1/Qcltl78qIAypwtwdXI4h\nTWivlIaUat/YpY6MCotdEUY0BvGsI5OHRQP9D1WFKqFJX63y3f/HVr3M6sjGJ1ya\nj+Z+hnFffMqaN+4IpAYv/HYzE1JK8txOSRIkCJ/m9uphNArWZ5A6sZqBtBoaQlym\nquwwX2nhkQKBgQDYAstLDSok2voUHzlIMkYArnKFPu8eZHzG5/Ki5iBDXFDAvElm\n9wVs2p2b959B8WAsdR85OaPBroezNS+OdUDq2G+Wl+DifeXsdMUAhvKDUrk8D3xt\nIy37POE7MB4RjSi+ZK4SaE2T0MSRKghPraayRTp1ztEQCbZK0kfn5was/wKBgQCH\n0D4DnNr5gpXYYtnZ0ce9QrPS6mINshqJpdH1Cyx/0S0kfW5yTb0Y1PpzlEKvtR0M\n/nR2LU64ewKkZA7HzGX7GxEEX3AKS05yfucp4nnFU3kZOLG/KvTlZAMmBz5TiNWd\nB5l2vJV1DKAWu5NZgsVpJlVVX6uAjyRPB8IxlPUmMQKBgQDFykrgAc0cwW5x59VE\njO/2NHP+UP6Xti4BN1RsayktvDSj9jDFjItLqY/XqhuJLEcOHh48jFJ7Uw/f0nYL\nNDnlrPnUewowxfpSQdi3zu4ZPnSZ1sWRQ78dKmiXBBzvBMK8jVj9WSMHwjA4OmOV\n0YXUJur3AUXhPlY/NmWYH1hm8A==\n-----END PRIVATE KEY-----\n",
+    "client_email": "bgn-389@bgn-university-hack-rem-1010.iam.gserviceaccount.com",
+    "client_id": "118352579475799529295",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/bgn-389%40bgn-university-hack-rem-1010.iam.gserviceaccount.com"
+  }
+ 
