@@ -6,6 +6,38 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import React from "react";
 
 function AddProduct() {
+  const getFileFromInput = (file) => {
+    return new Promise(function (resolve, reject) {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = function () {
+        resolve(reader.result);
+      };
+      reader.readAsBinaryString(file);
+    });
+  };
+
+  const manageUploadedFile = (binary, file) => {
+    console.log("File name: ", file.name);
+    console.log("File size: ", binary.length);
+  };
+
+  // Handle file change
+  const handleFileChange = (event) => {
+    event.persist();
+
+    Array.from(event.target.files).forEach((file) => {
+      getFileFromInput(file)
+        .then((binary) => {
+          manageUploadedFile(binary, file);
+        })
+        .catch(function (err) {
+          console.log(err);
+          event.target.value = "";
+        });
+    });
+  };
+
   return (
     <Paper square>
       <Grid
@@ -60,7 +92,13 @@ function AddProduct() {
 
         <Typography>Upload an image of your product:</Typography>
         <Grid item xs={12}>
-          <input accept="image/*" id="image-file" type="file" hidden />
+          <input
+            accept="image/*"
+            id="image-file"
+            type="file"
+            onChange={handleFileChange}
+            hidden
+          />
           <label htmlFor="image-file">
             <Button
               variant="contained"
@@ -75,7 +113,13 @@ function AddProduct() {
 
         <Typography>Upload the .GLB 3D model of your product:</Typography>
         <Grid item xs={12}>
-          <input accept=".glb" id="model-file" type="file" hidden />
+          <input
+            accept=".glb"
+            id="model-file"
+            type="file"
+            onChange={handleFileChange}
+            hidden
+          />
           <label htmlFor="model-file">
             <Button
               variant="contained"
