@@ -1,8 +1,8 @@
 import "@google/model-viewer";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import Astronaut from "../assets/3DModels/astronaut.glb";
-import AstronautIOS from "../assets/3DModels/astronaut.usdz";
+// import Astronaut from "../assets/3DModels/astronaut.glb";
+// import AstronautIOS from "../assets/3DModels/astronaut.usdz";
 import "./ARView.css";
 
 const useStyles = makeStyles({
@@ -24,15 +24,16 @@ const ARView = () => {
     <div class="imgbox">
       <model-viewer
         class="center-fit"
-        // src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-        src={Astronaut}
+        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        // src={Astronaut}
         alt="Astronaut - replace this with the releveant info"
         // auto-rotate
         camera-controls
         ar
         ar-scale="auto"
         ar-modes="webxr scene-viewer quick-look"
-        ios-src={AstronautIOS}
+        // ios-src={AstronautIOS}
+        ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
         // TODO: Use the image of the product as the poster when the model is loading
       >
         <button className={classes.arButton} slot="ar-button">
