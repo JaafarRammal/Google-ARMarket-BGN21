@@ -46,7 +46,11 @@ function Products(props) {
       <ElevationScroll {...props}>
         <AppBar position="fixed" className="primary">
           <Toolbar>
-            <img src={Logo} alt="logo" style={{maxHeight: "30px", paddingRight: "15px"}}/>
+            <img
+              src={Logo}
+              alt="logo"
+              style={{ maxHeight: "30px", paddingRight: "15px" }}
+            />
             <Typography>
               <h3>Google ARMarket</h3>
             </Typography>
@@ -60,8 +64,8 @@ function Products(props) {
             A virtual marketplace for everyone
           </p>
           <p style={{ fontSize: "small" }}>
-            Connect and support small businesses through our immersive shopping
-            experience
+            Connect with and support small businesses through our immersive
+            shopping experience
           </p>
           <br />
           <div className={classes.search}>
@@ -77,18 +81,28 @@ function Products(props) {
               inputProps={{ "aria-label": "search" }}
             />
             {/* <label htmlFor="icon-button-file"> */}
-            <Button variant="contained" className="primary" style={{position: "absolute"}}>
+            <Button
+              variant="contained"
+              className="primary"
+              style={{ position: "absolute" }}
+            >
               Go
             </Button>
           </div>
           <div style={{ height: "10px" }} />
           <Button
-              htmlFor="icon-button-file"
-              variant="contained"
-              className="primary"
-              style={{ marginBottom: "13px", padding: "6px 16px", marginRight: "13px" }}
-              startIcon={<PhotoAlbum />}
-            >Search by image</Button>
+            htmlFor="icon-button-file"
+            variant="contained"
+            className="primary"
+            style={{
+              marginBottom: "13px",
+              padding: "6px 16px",
+              marginRight: "13px",
+            }}
+            startIcon={<PhotoAlbum />}
+          >
+            Search by image
+          </Button>
           <Button
             className="secondary"
             variant="contained"
