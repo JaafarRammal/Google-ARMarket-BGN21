@@ -8,6 +8,7 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import PropTypes from "prop-types";
 import React from "react";
+import Logo from "../assets/logo512.png";
 import "./AddProduct.css";
 
 function ElevationScroll(props) {
@@ -73,8 +74,13 @@ function AddProduct(props) {
       <ElevationScroll {...props}>
         <AppBar position="fixed" style={{ background: "#1976D2" }}>
           <Toolbar>
+            <img
+              src={Logo}
+              alt="logo"
+              style={{ maxHeight: "30px", paddingRight: "15px" }}
+            />
             <Typography>
-              <h3>Google Marketplace</h3>
+              <h3>Google ARMarket</h3>
             </Typography>
           </Toolbar>
         </AppBar>
@@ -151,7 +157,7 @@ function AddProduct(props) {
               <label htmlFor="image-file">
                 <Button
                   variant="contained"
-                  color="primary"
+                  className="primary"
                   startIcon={<PhotoCamera />}
                   component="span"
                 >
@@ -175,7 +181,7 @@ function AddProduct(props) {
               <label htmlFor="model-file">
                 <Button
                   variant="contained"
-                  color="primary"
+                  className="primary"
                   startIcon={<CloudUploadIcon />}
                   component="span"
                 >
@@ -188,7 +194,7 @@ function AddProduct(props) {
               <Button
                 id="add-product"
                 variant="contained"
-                color="primary"
+                className="secondary"
                 startIcon={<AddIcon />}
               >
                 ADD
