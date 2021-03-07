@@ -45,27 +45,10 @@ function AddProduct(props) {
   });
 
   const nameRef = React.useRef();
+  const descriptionRef = React.useRef();
   const priceRef = React.useRef();
   const quantityRef = React.useRef();
   const tagsRef = React.useRef();
-
-  // Parse a file as binary
-  // const getFileFromInput = (file) => {
-  //   return new Promise(function (resolve, reject) {
-  //     const reader = new FileReader();
-  //     reader.onerror = reject;
-  //     reader.onload = function () {
-  //       resolve(reader.result);
-  //     };
-  //     reader.readAsBinaryString(file);
-  //   });
-  // };
-
-  // const manageUploadedFile = (binary, file) => {
-  //   console.log("File name: ", file.name);
-  //   console.log("File size: ", binary.length);
-
-  // };
 
   React.useEffect(() => {
     console.log("Current files: ", imageFile, modelFiles);
@@ -97,6 +80,7 @@ function AddProduct(props) {
     // Create the form data and send it
     const productData = new FormData();
     productData.append("name", nameRef.current.value);
+    productData.append("description", descriptionRef.current.value);
     productData.append("price", priceRef.current.value);
     productData.append("quantity", quantityRef.current.value);
     productData.append("tags", tagsRef.current.value);
@@ -119,25 +103,16 @@ function AddProduct(props) {
       productData.append("usdzFile", modelFiles.usdz);
     }
 
-    // .forEach((file) => {
-    // getFileFromInput(file)
-    //   .then((binary) => {
-    //     // manageUploadedFile(binary, file);
-    //   })
-    //   .catch(function (err) {
-    //     console.log(err);
-    //     event.target.value = "";
-    //   });
-    // });
-
     // Send a POST fetch request with the data
     fetch(
-      "http://localhost:5001/bgn-university-hack-rem-1010/us-central1/app/api/products",
+      "https://us-central1-bgn-university-hack-rem-1010.cloudfunctions.net/app/api/products",
       {
         method: "POST",
         body: productData,
       }
-    );
+    )
+      .then(() => alert("Added product"))
+      .catch(() => alert("An error occurred"));
   };
 
   return (
@@ -188,6 +163,18 @@ function AddProduct(props) {
                 margin="normal"
                 variant="outlined"
                 inputRef={nameRef}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                label="Product Description"
+                required
+                id="product-description"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                inputRef={descriptionRef}
               />
             </Grid>
 
