@@ -4,14 +4,22 @@
 }
 
 .imgbox {
-  display: grid;
-  height: 100%;
+  height: 500px !;
 }
 
-.center-fit {
-  max-width: 100%;
-  max-height: 100vh;
-  height: 100vh;
-  width: 100vw;
-  margin: auto;
+.ar-wrapper {
+  max-width: 530px;
+  padding: 5px;
+  /* margin-top: 20px; */
+  /* box-shadow: 4px 3px 8px 1px #969696;
+  --webkit-box-shadow: 4px 3px 8px 1px #969696; */
+}
+
+.details-wrapper {
+  max-width: 530px;
+  min-width: 200px;
+  max-height: 550px;
+  padding: 5px;
+  /* box-shadow: 4px 3px 8px 1px #969696;
+  --webkit-box-shadow: 4px 3px 8px 1px #969696; */
 }
