@@ -49,6 +49,7 @@ function Products(props) {
     if (!fetched) {
       // fetch from the api..
       // set products when received
+      // setProducts();
 
       // set once received
       setFetched(true);
