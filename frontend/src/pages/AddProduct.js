@@ -1,4 +1,9 @@
-import { Grid, TextField, Typography } from "@material-ui/core";
+import {
+  Grid,
+  TextField,
+  Typography,
+  CircularProgress,
+} from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -50,6 +55,8 @@ function AddProduct(props) {
   const quantityRef = React.useRef();
   const tagsRef = React.useRef();
 
+  const [loading, setLoading] = React.useState(false);
+
   React.useEffect(() => {
     console.log("Current files: ", imageFile, modelFiles);
   }, [imageFile, modelFiles]);
@@ -76,6 +83,7 @@ function AddProduct(props) {
 
   const handleAdd = () => {
     console.log("Add files");
+    setLoading(true);
 
     // Create the form data and send it
     const productData = new FormData();
@@ -111,8 +119,14 @@ function AddProduct(props) {
         body: productData,
       }
     )
-      .then(() => alert("Added product"))
-      .catch(() => alert("An error occurred"));
+      .then(() => {
+        setLoading(false);
+        alert("Added product");
+      })
+      .catch(() => {
+        setLoading(false);
+        alert("An error occurred");
+      });
   };
 
   return (
@@ -135,6 +149,8 @@ function AddProduct(props) {
       >
         <div className="inner-decoration">
           <p style={{ fontSize: "x-large" }}>Add your product to the market!</p>
+          <br />
+          {loading && <CircularProgress style={{ color: "#1976d2" }} />}
         </div>
       </div>
       <div className="paper-container">
