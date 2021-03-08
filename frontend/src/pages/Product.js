@@ -1,18 +1,16 @@
 import "@google/model-viewer";
-import React from "react";
-import Map from "./Map";
-import "./ARView.css";
-
 import { Typography } from "@material-ui/core";
-import Toolbar from "@material-ui/core/Toolbar";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import PropTypes from "prop-types";
-import Logo from "../assets/logo512.png";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
+import Toolbar from "@material-ui/core/Toolbar";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import PropTypes from "prop-types";
+import React from "react";
+import Logo from "../assets/logo512.png";
+import "./ARView.css";
 
 const ARView = () => {
   return (
@@ -138,7 +136,7 @@ function Product(props) {
           <Grid item xs>
             <Card className="ar-wrapper">
               <CardContent>
-                <Map location={location} zoomLevel={17} />
+                {/* <Map location={location} zoomLevel={17} /> */}
                 <Button
                   className="primary"
                   onClick={() =>

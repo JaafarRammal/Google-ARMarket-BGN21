@@ -41,6 +41,20 @@ ElevationScroll.propTypes = {
 
 function Products(props) {
   const classes = useStyles();
+
+  const [fetched, setFetched] = React.useState(false);
+  const [products, setProducts] = React.useState([]);
+
+  React.useEffect(() => {
+    if (!fetched) {
+      // fetch from the api..
+      // set products when received
+
+      // set once received
+      setFetched(true);
+    }
+  }, [fetched]);
+
   return (
     <>
       <ElevationScroll {...props}>
@@ -125,11 +139,11 @@ function Products(props) {
       </div>
       <div style={{ flexGrow: 1, overflow: "hidden", paddingTop: "10px" }}>
         <Grid container spacing={3} className="products-list">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
+          {products.length > 0 && (
             <Grid item xs>
               <ProductCard></ProductCard>
             </Grid>
-          ))}
+          )}
         </Grid>
       </div>
     </>

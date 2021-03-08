@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "name": "Stool",
+            "price": 30,
+            "quantity": 10,
+            "description": "A stool for casual use around the home, carefully crafted for maximum comfort.",
+            "tags": "furniture, chair, stool, sit",
+            "imageFile": "stool/stool.png",
+            "glbLink": "stool/stool.glb",
+            "usdzLink": "stool/stool.usdz"
+        },
+        {
+            "name": "Credenza",
+            "price": 90,
+            "quantity": 10,
+            "description": "A credenza to give your home the finishing touch to make it come truly alive.",
+            "tags": "furniture, chair, stool, sit",
+            "imageFile": "stool/stool.png",
+            "glbLink": "stool/stool.glb",
+            "usdzLink": "stool/stool.usdz"
+        }
+    ]
+}
