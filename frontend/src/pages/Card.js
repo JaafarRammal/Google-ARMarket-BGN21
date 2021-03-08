@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Link as RouterLink } from "react-router-dom";
-import shop from "../assets/images/shop1.png";
 
 const useStyles = makeStyles({
   root: {
@@ -30,6 +29,7 @@ const useStyles = makeStyles({
 
 function ProductCard(props) {
   const classes = useStyles();
+  const product = props.product;
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -40,34 +40,38 @@ function ProductCard(props) {
               color="textSecondary"
               gutterBottom
             >
-              Crafts
+              {product.product_tags[0]}
             </Typography>
             <Typography variant="h5" component="h2">
-              Desk Robot
+              {product.name}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
               Jaafar Rammal
             </Typography>
           </Grid>
           <Grid item xs={4} dir="rtl">
-            <img src={shop} style={{ maxHeight: "80px" }} alt="robot"></img>
+            <img
+              src={product.image_link}
+              style={{ maxHeight: "80px" }}
+              alt="robot"
+            ></img>
           </Grid>
         </Grid>
         <Typography variant="body2" component="p">
-          Carefully crafted and well maintained robots for your desks
+          {product.description}
         </Typography>
       </CardContent>
       <CardActions>
         <Button
           component={RouterLink}
-          to={`/products/1`}
+          to={`/products/${props.p_id}`}
           variant="contained"
           className="primary"
         >
           Explore
         </Button>
         <div style={{ textAlign: "right", width: "40%" }}>
-          <h3>£80</h3>
+          <h3>£{product.price}</h3>
         </div>
       </CardActions>
     </Card>

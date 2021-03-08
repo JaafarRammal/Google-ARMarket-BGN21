@@ -10,22 +10,24 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import PropTypes from "prop-types";
 import React from "react";
 import Logo from "../assets/logo512.png";
+import Map from "./Map";
 import "./ARView.css";
+import { getProduct } from "../services/searchQuery";
 
-const ARView = () => {
+const ARView = (props) => {
   return (
-    <div class="imgbox">
+    <div className="imgbox">
       <model-viewer
         className="center-fit"
         style={{ width: "80vw", height: "50vh", maxWidth: "500px" }}
-        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        src={props.glb}
         alt="Astronaut - replace this with the releveant info"
         // auto-rotate
         camera-controls
         ar
         ar-scale="auto"
         ar-modes="webxr scene-viewer quick-look"
-        ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
+        ios-src={props.usdz}
         // TODO: Use the image of the product as the poster when the model is loading
       >
         <Button
@@ -79,6 +81,23 @@ function Product(props) {
     seller: "Jaafar Rammal",
   };
 
+  const id = props.match.params.productId;
+  const [fetched, setFetched] = React.useState(false);
+  const [product, setProduct] = React.useState({});
+
+  React.useEffect(() => {
+    if (!fetched) {
+      // fetch from the api..
+      // set products when received
+      console.log("fetching product", id);
+      getProduct(id).then((data) => {
+        setProduct(data);
+        console.log(product);
+        setFetched(true);
+      });
+    }
+  }, [fetched]);
+
   return (
     <div>
       {/* App bar */}
@@ -97,61 +116,76 @@ function Product(props) {
         </AppBar>
       </ElevationScroll>
       {/* Main view view */}
-      <div style={{ marginTop: "50px", padding: "80px 20px" }}>
-        {/* <p>Got product ID: {props.match.params.productId}</p> */}
-        <Grid container spacing={3}>
-          {/* Product details */}
-          <Grid item xs>
-            <Card className="details-wrapper">
-              <CardContent>
-                <h1>Product details</h1>
-                <br />
-                <h2>{prod.title}</h2>
-                <br />
-                <p>{prod.description}</p>
-                <br />
-                <p>
-                  <b>Seller: </b>
-                  {prod.seller}
-                </p>
-                <br />
-                <p>
-                  <b>Price: </b>£{prod.price}
-                </p>
-                <br />
-                <Button className="primary">Add to cart</Button>
-              </CardContent>
-            </Card>
+      {fetched && (
+        <div style={{ marginTop: "50px", padding: "80px 20px" }}>
+          {/* <p>Got product ID: {props.match.params.productId}</p> */}
+          <Grid container spacing={3}>
+            {/* Product details */}
+            <Grid item xs>
+              <Card className="details-wrapper">
+                <CardContent>
+                  <h1>Product details</h1>
+                  <br />
+                  <h2>{product.name}</h2>
+                  <br />
+                  <p>{product.description}</p>
+                  <br />
+                  <p>
+                    <b>Seller: </b>
+                    Jaafar Rammal
+                  </p>
+                  <br />
+                  <p>
+                    <b>Tags: </b>
+                    {product.product_tags.toString()}
+                  </p>
+                  <br />
+                  <p>
+                    <b>Quantity: </b>
+                    {product.quantity}
+                  </p>
+                  <br />
+                  <p>
+                    <b>Price: </b>£{product.price}
+                  </p>
+                  <br />
+                  <Button className="primary">Add to cart</Button>
+                </CardContent>
+              </Card>
+            </Grid>
+            {/* AR view wrapper */}
+            <Grid item xs>
+              <Card className="ar-wrapper">
+                <CardContent>
+                  <h3>3D Viewer</h3>
+                  <ARView
+                    glb={product.models.glb_link}
+                    usdz={product.models.usdz_link}
+                  />
+                </CardContent>
+              </Card>
+            </Grid>
+            {/* Map details */}
+            <Grid item xs>
+              <Card className="ar-wrapper">
+                <CardContent>
+                  <Map location={location} zoomLevel={17} />
+                  <Button
+                    className="primary"
+                    onClick={() =>
+                      window.open(
+                        `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`
+                      )
+                    }
+                  >
+                    Open in Google Maps
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
-          {/* AR view wrapper */}
-          <Grid item xs>
-            <Card className="ar-wrapper">
-              <CardContent>
-                <h3>3D Viewer</h3>
-                <ARView />
-              </CardContent>
-            </Card>
-          </Grid>
-          {/* Map details */}
-          <Grid item xs>
-            <Card className="ar-wrapper">
-              <CardContent>
-                {/* <Map location={location} zoomLevel={17} /> */}
-                <Button
-                  className="primary"
-                  onClick={() =>
-                    window.open(
-                      `https://www.google.com/maps/search/?api=1&query=${location.lat},${location.lng}`
-                    )
-                  }
-                >
-                  Open in Google Maps
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

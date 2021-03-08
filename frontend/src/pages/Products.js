@@ -10,7 +10,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import PropTypes from "prop-types";
 import React from "react";
 import Logo from "../assets/logo512.png";
-import { searchByWord } from "../services/searchQuery";
+import { getAllProducts, searchByWord } from "../services/searchQuery";
 import ProductCard from "./Card";
 import "./Products.css";
 import { useStyles } from "./Styles";
@@ -51,10 +51,23 @@ function Products(props) {
     if (!fetched) {
       // fetch from the api..
       // set products when received
-      // setProducts();
-
+      if (searchRef.current.value === "") {
+        console.log("fetching all products");
+        getAllProducts().then((products) => {
+          setProducts(products);
+          console.log(products);
+          setFetched(true);
+        });
+      } else {
+        // search by word
+        console.log("by word");
+        searchByWord(searchRef.current.value).then((products) => {
+          setProducts(products);
+          console.log(products);
+          setFetched(true);
+        });
+      }
       // set once received
-      setFetched(true);
     }
   }, [fetched]);
 
@@ -101,7 +114,7 @@ function Products(props) {
               variant="contained"
               className="primary"
               style={{ position: "absolute" }}
-              onClick={() => searchByWord(searchRef.current.value)}
+              onClick={() => setFetched(false)}
             >
               Go
             </Button>
@@ -116,6 +129,7 @@ function Products(props) {
               padding: "6px 16px",
               marginRight: "13px",
             }}
+            onClick={() => setFetched(false)}
             startIcon={<PhotoAlbum />}
           >
             Search by image
@@ -144,11 +158,17 @@ function Products(props) {
       </div>
       <div style={{ flexGrow: 1, overflow: "hidden", paddingTop: "10px" }}>
         <Grid container spacing={3} className="products-list">
-          {products.length > 0 && (
-            <Grid item xs>
-              <ProductCard></ProductCard>
-            </Grid>
-          )}
+          {products.length > 0 &&
+            products.map((productData, index) => {
+              return (
+                <Grid item xs key={index}>
+                  <ProductCard
+                    product={productData.data}
+                    p_id={productData.id}
+                  ></ProductCard>
+                </Grid>
+              );
+            })}
         </Grid>
       </div>
     </>
