@@ -4,6 +4,8 @@
 
 ## Google - ARMarket
 
+This project won 2nd place at Google's BGN Hackathon 2021 (05/03/2021 - 08/03/2021)
+
 ![Product - 3D](info/product.gif)
 
 ![Product page](info/product-page.png)
