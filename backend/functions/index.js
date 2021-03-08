@@ -307,7 +307,7 @@ function getProductIDs(object_tags) {
             return tags.includes(e1);
           });
           if (ans) {
-            product_ids.push(id);
+            product_ids.push({id : doc.id, data : doc.data() });
           }
         });
 
