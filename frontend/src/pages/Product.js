@@ -22,7 +22,7 @@ const ARView = (props) => {
         style={{ width: "80vw", height: "60vh", maxWidth: "500px" }}
         src={props.glb}
         alt="Astronaut - replace this with the releveant info"
-        // auto-rotate
+        auto-rotate
         camera-controls
         ar
         ar-scale="auto"
@@ -81,8 +81,8 @@ function Product(props) {
   const names = ["Jaafar Rammal", "Jennifer Smith"];
 
   const stories = [
-    "Hi, my name is Jaafar! I'm a X year old student from London and really enjoy crafting things in my spare time. I started this business 6 months ago with the aim of sharing my passion with others. I appreciate all the support!",
-    "Hello everyone, I'm Jennifer. I'm 30 years old and recently got into crafting - I began my business a year ago but because of the pandemic I've found it hard to get customers. This platform really helps me to bring my products to you, so have a look around and see what takes your fancy!",
+    "Hi, my name is Jaafar! I'm a 21 year old student from London and really enjoy crafting things in my spare time. I started this business 6 months ago with the aim of sharing my passion with others. I appreciate all the support!",
+    "Hello everyone, I'm Jennifer. I'm 30 years old and recently got into crafting - I began my business a year ago but because of the pandemic I've found it hard to get customers. My products are sustainable and eco-friendly, so you're also looking out for the environment. This platform really helps me to bring my products to you, so have a look around and see what takes your fancy!",
   ];
 
   const images = [
