@@ -10,20 +10,20 @@ export function searchByWord(word) {
   });
 }
 
-export function searchByImage(event) {
-  // return new Promise((resolve, reject) => {
-  // Get the file
-  let formData = new FormData();
-  formData.append("image", event.target.files[0]);
-  console.log("Image: ", event.target.files[0]);
+export function searchByImage(file) {
+  return new Promise((resolve, reject) => {
+    // Get the file
+    let formData = new FormData();
+    formData.append("image", file);
+    console.log("Image: ", file);
 
-  let query =
-    "https://us-central1-bgn-university-hack-rem-1010.cloudfunctions.net/app/api/upload";
-  console.log("Query", query);
-  fetch(query, { method: "POST", body: formData })
-    .then((documents) => documents.json().then((data) => console.log(data)))
-    .catch((err) => console.log(err));
-  // });
+    let query =
+      "https://us-central1-bgn-university-hack-rem-1010.cloudfunctions.net/app/api/upload";
+    console.log("Query", query);
+    fetch(query, { method: "POST", body: formData })
+      .then((documents) => documents.json().then((data) => resolve(data)))
+      .catch((err) => reject(err));
+  });
 }
 
 export function getAllProducts() {

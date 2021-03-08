@@ -127,7 +127,13 @@ function Products(props) {
             accept="image/*"
             id="search-image-file"
             type="file"
-            onChange={searchByImage}
+            onChange={(event) => {
+              searchByImage(event.target.files[0]).then((products) => {
+                setProducts(products);
+                console.log(products);
+                // setFetched(true);
+              });
+            }}
             hidden
           />
           <label htmlFor="search-image-file">

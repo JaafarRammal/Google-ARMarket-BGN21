@@ -10,9 +10,9 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import PropTypes from "prop-types";
 import React from "react";
 import Logo from "../assets/logo512.png";
-import Map from "./Map";
-import "./ARView.css";
 import { getProduct } from "../services/searchQuery";
+import "./ARView.css";
+import Map from "./Map";
 
 const ARView = (props) => {
   return (
@@ -74,12 +74,12 @@ const location = {
 };
 
 function Product(props) {
-  const prod = {
-    title: "Robot",
-    description: "A carefully crafted and well designed robot for your desk",
-    price: 80,
-    seller: "Jaafar Rammal",
-  };
+  // const prod = {
+  //   title: "Robot",
+  //   description: "A carefully crafted and well designed robot for your desk",
+  //   price: 80,
+  //   seller: "Jaafar Rammal",
+  // };
 
   const id = props.match.params.productId;
   const [fetched, setFetched] = React.useState(false);
@@ -96,7 +96,7 @@ function Product(props) {
         setFetched(true);
       });
     }
-  }, [fetched]);
+  }, [fetched, id, product]);
 
   return (
     <div>
@@ -109,9 +109,7 @@ function Product(props) {
               alt="logo"
               style={{ maxHeight: "30px", paddingRight: "15px" }}
             />
-            <Typography>
-              <h3>Google ARMarket</h3>
-            </Typography>
+            <Typography component="h3">Google ARMarket</Typography>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
@@ -149,7 +147,16 @@ function Product(props) {
                     <b>Price: </b>£{product.price}
                   </p>
                   <br />
-                  <Button className="primary" onClick={() => alert("Ohhhhh we don't have a cart yet but is it worth it during a hackathon anyway! The AR stuff is already cool no?;)")}>Add to cart</Button>
+                  <Button
+                    className="primary"
+                    onClick={() =>
+                      alert(
+                        "Ohhhhh we don't have a cart yet but is it worth it during a hackathon anyway! The AR stuff is already cool no?;)"
+                      )
+                    }
+                  >
+                    Add to cart
+                  </Button>
                 </CardContent>
               </Card>
             </Grid>
