@@ -4,7 +4,7 @@
 }
 
 .imgbox {
-  height: 500px !;
+  height: 700px !;
 }
 
 .ar-wrapper {
@@ -17,8 +17,8 @@
 
 .details-wrapper {
   max-width: 530px;
-  min-width: 200px;
-  max-height: 550px;
+  min-width: 300px;
+  min-height: 67vh;
   padding: 5px;
   /* box-shadow: 4px 3px 8px 1px #969696;
   --webkit-box-shadow: 4px 3px 8px 1px #969696; */

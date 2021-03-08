@@ -19,7 +19,7 @@ const ARView = (props) => {
     <div className="imgbox">
       <model-viewer
         className="center-fit"
-        style={{ width: "80vw", height: "50vh", maxWidth: "500px" }}
+        style={{ width: "80vw", height: "60vh", maxWidth: "500px" }}
         src={props.glb}
         alt="Astronaut - replace this with the releveant info"
         // auto-rotate
@@ -87,7 +87,7 @@ function Product(props) {
 
   const images = [
     "https://avatars1.githubusercontent.com/u/45538723?s=400&u=542948751a05f4b1039828fe53f99a1a5e15468f&v=4",
-    "https://cultureplusconsulting.com/wp-content/uploads/2018/01/27755626_l-e1515478279465-1024x712.jpg",
+    "https://cdn.discordapp.com/attachments/817730471173029889/818315139907452958/unknown.png",
   ];
 
   React.useEffect(() => {
@@ -124,7 +124,7 @@ function Product(props) {
           {/* <p>Got product ID: {props.match.params.productId}</p> */}
           <Grid container spacing={3}>
             {/* Product details */}
-            <Grid item xs>
+            <Grid item md>
               <Card className="details-wrapper">
                 <CardContent>
                   <h1>Product details</h1>
@@ -154,11 +154,7 @@ function Product(props) {
                   <br />
                   <Button
                     className="primary"
-                    onClick={() =>
-                      alert(
-                        "Ohhhhh we don't have a cart yet but is it worth it during a hackathon anyway! The AR stuff is already cool no?;)"
-                      )
-                    }
+                    onClick={() => alert("Added to cart!")}
                   >
                     Add to cart
                   </Button>
@@ -166,7 +162,7 @@ function Product(props) {
               </Card>
             </Grid>
             {/* AR view wrapper */}
-            <Grid item xs>
+            <Grid item md>
               <Card className="ar-wrapper">
                 <CardContent>
                   <h3>3D Viewer</h3>
@@ -178,24 +174,29 @@ function Product(props) {
               </Card>
             </Grid>
             {/* Map details */}
-            <Grid item xs>
-              <Card className="ar-wrapper">
+            <Grid item md>
+              <Card className="details-wrapper ">
                 <CardContent>
                   <h3>Seller story</h3>
-                  <Grid container spacing={2}>
-                    <Grid item xs={8}>
-                      <br />
-                      {stories[product.quantity % 2]}
-                    </Grid>
-                    <Grid item xs={4}>
-                      <br />
-                      <img
-                        src={images[product.quantity % 2]}
-                        style={{ width: "100%", objectFit: "fill" }}
-                        alt="hot"
-                      />
-                    </Grid>
-                  </Grid>
+                  <br />
+                  <div style={{ width: "100%", textAlign: "center" }}>
+                    <img
+                      src={images[product.quantity % 2]}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        objectFit: "fill",
+                        borderRadius: "50%",
+                        padding: "0px 5%",
+                      }}
+                      alt=""
+                    />
+                  </div>
+                  <br />
+                  <div style={{ textAlign: "justify" }}>
+                    <br />
+                    {stories[product.quantity % 2]}
+                  </div>
                   <br />
                   <h3>Seller location</h3>
                   <br />
