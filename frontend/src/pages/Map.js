@@ -25,6 +25,7 @@ const LocationPin = ({ text }) => (
     <img
       style={{ height: "30px" }}
       src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.clker.com%2Fcliparts%2Fv%2FG%2Fa%2F3%2Fi%2Fa%2Fmap-marker-hi.png&f=1&nofb=1"
+      alt="fookin-pointer"
     />
     <p className="pin-text">{text}</p>
   </div>

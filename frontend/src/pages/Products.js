@@ -10,6 +10,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import PropTypes from "prop-types";
 import React from "react";
 import Logo from "../assets/logo512.png";
+import { searchByWord } from "../services/searchQuery";
 import ProductCard from "./Card";
 import "./Products.css";
 import { useStyles } from "./Styles";
@@ -41,6 +42,8 @@ ElevationScroll.propTypes = {
 
 function Products(props) {
   const classes = useStyles();
+  const searchRef = React.useRef();
+
   return (
     <>
       <ElevationScroll {...props}>
@@ -77,12 +80,14 @@ function Products(props) {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              inputRef={searchRef}
             />
             {/* <label htmlFor="icon-button-file"> */}
             <Button
               variant="contained"
               className="primary"
               style={{ position: "absolute" }}
+              onClick={() => searchByWord(searchRef.current.value)}
             >
               Go
             </Button>
@@ -125,8 +130,8 @@ function Products(props) {
       </div>
       <div style={{ flexGrow: 1, overflow: "hidden", paddingTop: "10px" }}>
         <Grid container spacing={3} className="products-list">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
-            <Grid item xs>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
+            <Grid item xs key={index}>
               <ProductCard></ProductCard>
             </Grid>
           ))}
