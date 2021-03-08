@@ -30,32 +30,33 @@ const useStyles = makeStyles({
 function ProductCard(props) {
   const classes = useStyles();
   const product = props.product;
+  const names = ["Jaafar Rammal", "Jennifer Smith"];
   return (
     <Card className={classes.root}>
       <CardContent>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            >
-              {product.product_tags[0]}
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {product.name}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Jaafar Rammal
-            </Typography>
+        <Typography
+          className={classes.title}
+          color="textSecondary"
+          gutterBottom
+        >
+          {product.product_tags[0]}
+        </Typography>
+        <Typography variant="h5" component="h2">
+          {product.name}
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          {names[product.quantity % 2]}
+        </Typography>
         <Typography variant="body2" component="p">
           {product.description}
         </Typography>
         <div style={{ height: "200px", width: "100%", padding: "10px 0px" }}>
-        <img
-              src={product.image_link}
-              style={{ maxHeight: "150px", width: "100%", objectFit: "contain"}}
-              alt="robot"
-            ></img>
-            </div>
+          <img
+            src={product.image_link}
+            style={{ maxHeight: "150px", width: "100%", objectFit: "contain" }}
+            alt="robot"
+          ></img>
+        </div>
       </CardContent>
       <CardActions>
         <Button

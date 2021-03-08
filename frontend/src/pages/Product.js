@@ -68,22 +68,27 @@ ElevationScroll.propTypes = {
 };
 
 const location = {
-  address: "1600 Amphitheatre Parkway, Mountain View, california.",
-  lat: 37.42216,
-  lng: -122.08427,
+  address: "Google Office",
+  lat: 51.53336432624241,
+  lng: -0.12600320186901312,
 };
 
 function Product(props) {
-  // const prod = {
-  //   title: "Robot",
-  //   description: "A carefully crafted and well designed robot for your desk",
-  //   price: 80,
-  //   seller: "Jaafar Rammal",
-  // };
-
   const id = props.match.params.productId;
   const [fetched, setFetched] = React.useState(false);
   const [product, setProduct] = React.useState({});
+
+  const names = ["Jaafar Rammal", "Jennifer Smith"];
+
+  const stories = [
+    "Hi, my name is Jaafar! I'm a X year old student from London and really enjoy crafting things in my spare time. I started this business 6 months ago with the aim of sharing my passion with others. I appreciate all the support!",
+    "Hello everyone, I'm Jennifer. I'm 30 years old and recently got into crafting - I began my business a year ago but because of the pandemic I've found it hard to get customers. This platform really helps me to bring my products to you, so have a look around and see what takes your fancy!",
+  ];
+
+  const images = [
+    "https://avatars1.githubusercontent.com/u/45538723?s=400&u=542948751a05f4b1039828fe53f99a1a5e15468f&v=4",
+    "https://cultureplusconsulting.com/wp-content/uploads/2018/01/27755626_l-e1515478279465-1024x712.jpg",
+  ];
 
   React.useEffect(() => {
     if (!fetched) {
@@ -130,7 +135,7 @@ function Product(props) {
                   <br />
                   <p>
                     <b>Seller: </b>
-                    Jaafar Rammal
+                    {names[product.quantity % 2]}
                   </p>
                   <br />
                   <p>
@@ -176,6 +181,23 @@ function Product(props) {
             <Grid item xs>
               <Card className="ar-wrapper">
                 <CardContent>
+                  <h3>Seller story</h3>
+                  <Grid container spacing={2}>
+                    <Grid item xs={8}>
+                      <br />
+                      {stories[product.quantity % 2]}
+                    </Grid>
+                    <Grid item xs={4}>
+                      <br />
+                      <img
+                        src={images[product.quantity % 2]}
+                        style={{ width: "100%", objectFit: "fill" }}
+                      />
+                    </Grid>
+                  </Grid>
+                  <br />
+                  <h3>Seller location</h3>
+                  <br />
                   <Map location={location} zoomLevel={17} />
                   <Button
                     className="primary"
