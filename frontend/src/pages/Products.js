@@ -96,7 +96,6 @@ function Products(props) {
               inputProps={{ "aria-label": "search" }}
               inputRef={searchRef}
             />
-            {/* <label htmlFor="icon-button-file"> */}
             <Button
               variant="contained"
               className="primary"
@@ -107,19 +106,29 @@ function Products(props) {
             </Button>
           </div>
           <div style={{ height: "10px" }} />
-          <Button
-            htmlFor="icon-button-file"
-            variant="contained"
-            className="primary"
-            style={{
-              marginBottom: "13px",
-              padding: "6px 16px",
-              marginRight: "13px",
-            }}
-            startIcon={<PhotoAlbum />}
-          >
-            Search by image
-          </Button>
+          <input
+            accept="image/*"
+            id="search-image-file"
+            type="file"
+            onChange={searchByImage}
+            hidden
+          />
+          <label htmlFor="search-image-file">
+            <Button
+              variant="contained"
+              className="primary"
+              style={{
+                marginBottom: "13px",
+                padding: "6px 16px",
+                marginRight: "13px",
+              }}
+              startIcon={<PhotoAlbum />}
+              component="span"
+            >
+              Search by image
+            </Button>
+          </label>
+
           <Button
             className="secondary"
             variant="contained"

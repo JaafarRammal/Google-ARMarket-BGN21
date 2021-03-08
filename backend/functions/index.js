@@ -15,9 +15,31 @@ admin.initializeApp({
   storageBucket: "bgn-university-hack-rem-1010.appspot.com", // Specify the storage bucket name
 });
 
-// Get the Google Cloud storage object
+// Get the Google Cloud storage bucket object
 const bucket = admin.storage().bucket();
-// console.log("Storage: ", storage);
+
+// Allow cors GET requests from our deployed page
+// (for the model viewer to load the model files from the bucket)
+const configureBucketCors = async () => {
+  let method = ["GET"];
+  let origin = ["https://virtual-market.web.app"];
+  let responseHeader = ["Content-Type"];
+
+  await bucket.setCorsConfiguration([
+    {
+      maxAgeSeconds: 3600,
+      method,
+      origin,
+      responseHeader,
+    },
+  ]);
+
+  console.log(
+    `Bucket ${bucket.name} was updated with a CORS config to allow ${method} requests from ${origin} sharing ${responseHeader} responses across origins`
+  );
+};
+
+configureBucketCors();
 
 const app = express();
 const db = admin.firestore();
@@ -307,7 +329,7 @@ function getProductIDs(object_tags) {
             return tags.includes(e1);
           });
           if (ans) {
-            product_ids.push({id : doc.id, data : doc.data() });
+            product_ids.push({ id: doc.id, data: doc.data() });
           }
         });
 
