@@ -10,7 +10,11 @@ import SearchIcon from "@material-ui/icons/Search";
 import PropTypes from "prop-types";
 import React from "react";
 import Logo from "../assets/logo512.png";
-import { getAllProducts, searchByWord } from "../services/searchQuery";
+import {
+  getAllProducts,
+  searchByImage,
+  searchByWord,
+} from "../services/searchQuery";
 import ProductCard from "./Card";
 import "./Products.css";
 import { useStyles } from "./Styles";
@@ -123,7 +127,7 @@ function Products(props) {
             accept="image/*"
             id="search-image-file"
             type="file"
-            // onChange={searchByImage}
+            onChange={searchByImage}
             hidden
           />
           <label htmlFor="search-image-file">
