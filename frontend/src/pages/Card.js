@@ -33,8 +33,6 @@ function ProductCard(props) {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Grid container spacing={3}>
-          <Grid item xs={8}>
             <Typography
               className={classes.title}
               color="textSecondary"
@@ -48,18 +46,16 @@ function ProductCard(props) {
             <Typography className={classes.pos} color="textSecondary">
               Jaafar Rammal
             </Typography>
-          </Grid>
-          <Grid item xs={4} dir="rtl">
-            <img
-              src={product.image_link}
-              style={{ maxHeight: "80px" }}
-              alt="robot"
-            ></img>
-          </Grid>
-        </Grid>
         <Typography variant="body2" component="p">
           {product.description}
         </Typography>
+        <div style={{ height: "200px", width: "100%", padding: "10px 0px" }}>
+        <img
+              src={product.image_link}
+              style={{ maxHeight: "150px", width: "100%", objectFit: "contain"}}
+              alt="robot"
+            ></img>
+            </div>
       </CardContent>
       <CardActions>
         <Button

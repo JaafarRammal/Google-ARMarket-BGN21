@@ -149,7 +149,7 @@ function Product(props) {
                     <b>Price: </b>£{product.price}
                   </p>
                   <br />
-                  <Button className="primary">Add to cart</Button>
+                  <Button className="primary" onClick={() => alert("Ohhhhh we don't have a cart yet but is it worth it during a hackathon anyway! The AR stuff is already cool no?;)")}>Add to cart</Button>
                 </CardContent>
               </Card>
             </Grid>
