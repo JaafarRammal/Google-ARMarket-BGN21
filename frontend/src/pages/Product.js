@@ -191,7 +191,13 @@ function Product(props) {
                       <br />
                       <img
                         src={images[product.quantity % 2]}
-                        style={{ width: "100%", objectFit: "fill" }}
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          objectFit: "fill",
+                          borderRadius: "50%",
+                        }}
+                        alt=""
                       />
                     </Grid>
                   </Grid>
