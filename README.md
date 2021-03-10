@@ -1,8 +1,8 @@
 # BGN21: Team pARception
 
-Check our cute pics at the bottom of the readme 😜
+Check our cute pics at the bottom of the readme 😜. This project won 2nd place at Google's BGN Hackathon 2021 (05/03/2021 - 08/03/2021) :octocat:
 
-## Intro
+## Introducing Google - ARMarket
 At pARception, we believe that AR is the next tech revolution of our era. Our mission is to try and level the playing field by making the technologies and services used by big players more accessible for all.
 
 Figures show that 20% of small businesses will fail in their first year and 60% not making it past year 3. This problem has also been amplified during the COVID 19 pandemic. These facts are what led us to create a web app which will help remedy some of the key issues exacerbated in this current climate.
@@ -29,9 +29,7 @@ Our deployed API uses Google’s Firebase cloud functions with NodeJS/Express to
 ## Possible extensions
 Going forward we can extend the idea several ways. One is to add a recommender system to the backend which makes use of machine learning to show suggested items to the customer. Next, we can expand support for further 3D models by adding model conversion to the pipeline e.g. supporting obj to glb as well as embedding a 3D scanner withing the platform (allowing sellers to scan their models in house). Finally we can also have a chrome extension to allow users to use search by image when surfing the web to search for alternative products from our market.
 
-## Google - ARMarket
-
-This project won 2nd place at Google's BGN Hackathon 2021 (05/03/2021 - 08/03/2021)
+## Some pics and ticks
 
 ![Product - 3D](info/product.gif)
 
@@ -48,3 +46,5 @@ Team members: Jaafar Rammal, Victoria Adjei, Barry Chang, Safiyya Onanuga, Agnes
 ![Team](info/team.png)
 
 ## Demonstration Video
+
+(You made it this far! We'll be compiling in a video shortly, in the meanwhile you can just... star the repo maybe?)
