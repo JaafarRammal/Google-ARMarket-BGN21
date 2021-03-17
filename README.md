@@ -48,3 +48,4 @@ Team members: Jaafar Rammal, Victoria Adjei, Barry Chang, Safiyya Onanuga, Agnes
 ## Demonstration Video
 
 (You made it this far! We'll be compiling in a video shortly, in the meanwhile you can just... star the repo maybe?)
+Update: https://www.youtube.com/watch?v=TwVx5D6ANHo
